@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成长时光 - 小宝贝成长记</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== 时间轴 ===== */
+        .timeline-section {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-light), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            text-align: right;
+            margin-right: 50px;
+            margin-left: 0;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 0 6px rgba(107, 185, 232, 0.2);
+        }
+
+        .timeline-content {
+            width: calc(50% - 50px);
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .timeline-date {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .timeline-month {
+            font-size: 14px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-content h3 {
+            font-size: 22px;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .timeline-content p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .timeline-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-tags {
+            justify-content: flex-end;
+        }
+
+        .timeline-tag {
+            padding: 4px 12px;
+            background: rgba(143, 214, 180, 0.15);
+            color: var(--secondary);
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .timeline-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #E8F4FD, #D4EFDF);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        /* ===== 身高体重区域 ===== */
+        #height-weight {
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            max-width: 1000px;
+            margin: 60px auto;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary-dark);
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .chart-box {
+            background: var(--bg-light);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .chart-box h4 {
+            font-size: 18px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            padding: 0 10px;
+        }
+
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .bar {
+            width: 30px;
+            background: linear-gradient(to top, var(--primary), var(--primary-light));
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 10px;
+        }
+
+        .bar:hover {
+            transform: scaleX(1.1);
+        }
+
+        .bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .bar-label {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .growth-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .growth-table th,
+        .growth-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e8f0f5;
+            font-size: 14px;
+        }
+
+        .growth-table th {
+            background: var(--bg-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .growth-table tr:hover td {
+            background: rgba(107, 185, 232, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd) {
+                flex-direction: row;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(odd) .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                margin-right: 0 !important;
+                text-align: left !important;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-tags {
+                justify-content: flex-start;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+
+            #height-weight {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">👶</span>
+                <span>小宝贝成长记</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="growth.html" class="active">成长时光</a></li>
+                <li><a href="gallery.html">精彩相册</a></li>
+                <li><a href="milestones.html">成长里程碑</a></li>
+                <li><a href="diary.html">亲子日记</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <!-- 页头 -->
+        <div class="page-header">
+            <h1>🌱 成长时光</h1>
+            <p>记录宝贝成长路上的每一个脚印，从新生儿到慢慢长大，每一天都是新的惊喜</p>
+        </div>
+
+        <!-- 时间轴 -->
+        <section class="timeline-section">
+            <div class="timeline">
+                <!-- 第12个月 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年8月</div>
+                        <div class="timeline-month">🌸 12个月 · 一岁啦！</div>
+                        <div class="timeline-image">🎂</div>
+                        <h3>宝贝一岁生日！</h3>
+                        <p>今天是宝贝的第一个生日！时间过得好快，仿佛昨天还在襁褓中，今天已经会扶着东西走路了。生日派对上宝贝穿着小西装，可爱极了，抓周的时候抓到了书和笔，将来一定是个爱学习的好孩子～</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">生日</span>
+                            <span class="timeline-tag">周岁</span>
+                            <span class="timeline-tag">重要时刻</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第10个月 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年6月</div>
+                        <div class="timeline-month">☀️ 10个月</div>
+                        <div class="timeline-image">🦶</div>
+                        <h3>扶站小达人</h3>
+                        <p>宝贝现在可以扶着沙发稳稳地站着了，还会沿着沙发挪步。每天都在家里探险，什么都想摸一摸、看一看。最近特别喜欢扔东西，扔完还会咯咯地笑，小调皮蛋一个！</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">大运动</span>
+                            <span class="timeline-tag">扶站</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第8个月 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年4月</div>
+                        <div class="timeline-month">🌸 8个月</div>
+                        <div class="timeline-image">🍼</div>
+                        <h3>开始吃辅食啦</h3>
+                        <p>从六个月开始添加辅食，到现在宝贝已经能吃很多东西了！最喜欢吃南瓜泥和香蕉，每次看到小碗就兴奋得手舞足蹈。不过还是会把食物弄得到处都是，每次吃完饭都像打过仗一样～</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">辅食</span>
+                            <span class="timeline-tag">饮食</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第6个月 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2026年2月</div>
+                        <div class="timeline-month">❄️ 6个月 · 半岁</div>
+                        <div class="timeline-image">😊</div>
+                        <h3>会坐啦！</h3>
+                        <p>半岁的宝贝已经可以独立坐稳了！虽然有时候还会摇摇晃晃地倒下，但每次都会努力再坐起来。小家伙越来越有个性了，喜欢的玩具会紧紧抓住，不喜欢的会直接推开，小脾气见长呢～</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">独坐</span>
+                            <span class="timeline-tag">半岁</span>
+                            <span class="timeline-tag">大运动</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第4个月 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年12月</div>
+                        <div class="timeline-month">🍂 4个月</div>
+                        <div class="timeline-image">🎯</div>
+                        <h3>翻身成功！</h3>
+                        <p>经过几天的努力，宝贝终于会翻身了！从仰躺翻到俯卧，然后就翻不回来了，趴在那里努力抬头的样子超可爱。现在一放到床上就想翻，拦都拦不住，运动细胞看来不错～</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">翻身</span>
+                            <span class="timeline-tag">大运动</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第2个月 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年10月</div>
+                        <div class="timeline-month">🍁 2个月</div>
+                        <div class="timeline-image">💝</div>
+                        <h3>第一次社会性微笑</h3>
+                        <p>今天宝贝对着妈妈笑了！不是睡梦中的微笑，是真正看着妈妈的眼睛，然后嘴角上扬，眼睛弯弯的，太治愈了！那一刻所有的辛苦都值得了。妈妈激动得眼泪都快掉下来了～</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">微笑</span>
+                            <span class="timeline-tag">社交发展</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 出生 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2025年8月10日</div>
+                        <div class="timeline-month">☀️ 出生日</div>
+                        <div class="timeline-image">👶</div>
+                        <h3>你好，世界！</h3>
+                        <p>经过漫长的等待，小宝贝终于和我们见面了！一声响亮的啼哭，宣告着你的到来。小小的身体，皱巴巴的脸蛋，却是爸爸妈妈心中最完美的宝贝。欢迎来到这个世界，我们会用全部的爱来守护你。</p>
+                        <div class="timeline-tags">
+                            <span class="timeline-tag">出生</span>
+                            <span class="timeline-tag">第一天</span>
+                            <span class="timeline-tag">重要时刻</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 身高体重 -->
+        <section id="height-weight">
+            <h2 class="chart-title">📊 成长发育记录</h2>
+            <div class="chart-container">
+                <div class="chart-box">
+                    <h4>📏 身高增长曲线</h4>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar" style="height: 62%;" data-value="50cm"></div>
+                            <div class="bar-label">出生</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 70%;" data-value="57cm"></div>
+                            <div class="bar-label">3月</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 78%;" data-value="64cm"></div>
+                            <div class="bar-label">6月</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 85%;" data-value="70cm"></div>
+                            <div class="bar-label">9月</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 92%;" data-value="75cm"></div>
+                            <div class="bar-label">12月</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-box">
+                    <h4>⚖️ 体重增长曲线</h4>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar" style="height: 42%;" data-value="3.35kg"></div>
+                            <div class="bar-label">出生</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 65%;" data-value="6.5kg"></div>
+                            <div class="bar-label">3月</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 78%;" data-value="8.2kg"></div>
+                            <div class="bar-label">6月</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 88%;" data-value="9.5kg"></div>
+                            <div class="bar-label">9月</div>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 95%;" data-value="10.5kg"></div>
+                            <div class="bar-label">12月</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <table class="growth-table">
+                <thead>
+                    <tr>
+                        <th>月龄</th>
+                        <th>身高 (cm)</th>
+                        <th>体重 (kg)</th>
+                        <th>头围 (cm)</th>
+                        <th>发育评价</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>出生</td>
+                        <td>50</td>
+                        <td>3.35</td>
+                        <td>34</td>
+                        <td>🌟 标准</td>
+                    </tr>
+                    <tr>
+                        <td>1个月</td>
+                        <td>55</td>
+                        <td>4.5</td>
+                        <td>37</td>
+                        <td>🌟 标准</td>
+                    </tr>
+                    <tr>
+                        <td>3个月</td>
+                        <td>62</td>
+                        <td>6.5</td>
+                        <td>41</td>
+                        <td>🌟 标准</td>
+                    </tr>
+                    <tr>
+                        <td>6个月</td>
+                        <td>69</td>
+                        <td>8.5</td>
+                        <td>44</td>
+                        <td>✨ 中上</td>
+                    </tr>
+                    <tr>
+                        <td>9个月</td>
+                        <td>73</td>
+                        <td>9.5</td>
+                        <td>46</td>
+                        <td>🌟 标准</td>
+                    </tr>
+                    <tr>
+                        <td>12个月</td>
+                        <td>76</td>
+                        <td>10.5</td>
+                        <td>47</td>
+                        <td>✨ 中上</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>👶 小宝贝成长记</h3>
+                <p>记录成长，珍藏感动<br>用爱陪伴宝贝每一天</p>
+            </div>
+            <div>
+                <h3>快速导航</h3>
+                <p><a href="index.html">首页</a></p>
+                <p><a href="growth.html">成长时光</a></p>
+                <p><a href="gallery.html">精彩相册</a></p>
+            </div>
+            <div>
+                <h3>更多内容</h3>
+                <p><a href="milestones.html">成长里程碑</a></p>
+                <p><a href="diary.html">亲子日记</a></p>
+                <p><a href="about.html">关于我们</a></p>
+            </div>
+            <div>
+                <h3>联系我们</h3>
+                <p>💌 baby@example.com</p>
+                <p>📱 关注微信公众号</p>
+                <p>💬 分享成长喜悦</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 小宝贝成长记 · 用爱记录每一刻 · Made with 💙
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

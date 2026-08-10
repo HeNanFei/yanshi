@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成长里程碑 - 小宝贝成长记</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* ===== 里程碑概览 ===== */
+        .milestone-overview {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .milestone-stat {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .milestone-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-number .unit {
+            font-size: 16px;
+            color: var(--text-gray);
+            font-weight: normal;
+        }
+
+        .stat-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-top: 8px;
+        }
+
+        /* ===== 里程碑分类 ===== */
+        .milestone-category {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .category-title {
+            font-size: 26px;
+            color: var(--primary-dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-title .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+
+        .milestone-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .milestone-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .milestone-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .milestone-card.achieved::before {
+            background: linear-gradient(to bottom, var(--secondary), #6BC9A0);
+        }
+
+        .milestone-card.pending::before {
+            background: linear-gradient(to bottom, var(--text-light), #d0d0d0);
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .milestone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .milestone-icon {
+            font-size: 36px;
+        }
+
+        .milestone-badge {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .milestone-badge.achieved {
+            background: rgba(143, 214, 180, 0.2);
+            color: #5BBD94;
+        }
+
+        .milestone-badge.pending {
+            background: rgba(200, 200, 200, 0.2);
+            color: var(--text-gray);
+        }
+
+        .milestone-card h4 {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .milestone-date {
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .milestone-card.pending .milestone-date {
+            color: var(--text-gray);
+        }
+
+        .milestone-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* ===== 里程碑进度条 ===== */
+        .progress-section {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 50px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-title {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary-dark);
+            margin-bottom: 40px;
+        }
+
+        .progress-bar-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .progress-label .name {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .progress-label .percent {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #e8f0f5;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary));
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .progress-fill.green {
+            background: linear-gradient(90deg, #B8E6D0, var(--secondary));
+        }
+
+        .progress-fill.orange {
+            background: linear-gradient(90deg, #FFE4B5, #FFB366);
+        }
+
+        /* ===== 成就展示 ===== */
+        .achievements-section {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .achievements-title {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary-dark);
+            margin-bottom: 40px;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+        }
+
+        .achievement-badge {
+            text-align: center;
+            padding: 25px 15px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .achievement-badge:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .achievement-badge.locked {
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+
+        .achievement-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .achievement-name {
+            font-size: 13px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .milestone-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .milestone-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .achievements-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .progress-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">👶</span>
+                <span>小宝贝成长记</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="growth.html">成长时光</a></li>
+                <li><a href="gallery.html">精彩相册</a></li>
+                <li><a href="milestones.html" class="active">成长里程碑</a></li>
+                <li><a href="diary.html">亲子日记</a></li>
+                <li><a href="about.html">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <!-- 页头 -->
+        <div class="page-header">
+            <h1>🏆 成长里程碑</h1>
+            <p>见证宝贝人生中每一个重要的第一次，每一步都是成长的印记</p>
+        </div>
+
+        <!-- 里程碑概览 -->
+        <div class="milestone-overview">
+            <div class="milestone-stat">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-number">8<span class="unit">/12</span></div>
+                <div class="stat-desc">已达成里程碑</div>
+            </div>
+            <div class="milestone-stat">
+                <div class="stat-icon">🏃</div>
+                <div class="stat-number">5<span class="unit">项</span></div>
+                <div class="stat-desc">大运动发展</div>
+            </div>
+            <div class="milestone-stat">
+                <div class="stat-icon">🗣️</div>
+                <div class="stat-number">3<span class="unit">项</span></div>
+                <div class="stat-desc">语言发展</div>
+            </div>
+            <div class="milestone-stat">
+                <div class="stat-icon">🧠</div>
+                <div class="stat-number">67<span class="unit">%</span></div>
+                <div class="stat-desc">整体进度</div>
+            </div>
+        </div>
+
+        <!-- 进度条 -->
+        <section class="progress-section">
+            <h2 class="progress-title">📊 各领域发展进度</h2>
+            <div class="progress-bar-wrapper">
+                <div class="progress-label">
+                    <span class="name">🏃 大运动发展</span>
+                    <span class="percent">70%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 70%"></div>
+                </div>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-label">
+                    <span class="name">✋ 精细动作</span>
+                    <span class="percent">65%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" style="width: 65%"></div>
+                </div>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-label">
+                    <span class="name">🗣️ 语言发展</span>
+                    <span class="percent">50%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill orange" style="width: 50%"></div>
+                </div>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-label">
+                    <span class="name">🧠 认知能力</span>
+                    <span class="percent">75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-label">
+                    <span class="name">😊 社交情绪</span>
+                    <span class="percent">80%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill green" style="width: 80%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 大运动里程碑 -->
+        <section class="milestone-category">
+            <h3 class="category-title">
+                <span class="icon">🏃</span>
+                大运动发展
+            </h3>
+            <div class="milestone-cards">
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🔄</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>会翻身</h4>
+                    <div class="milestone-date">2025年12月15日 · 4个月</div>
+                    <p class="milestone-desc">从仰卧翻到俯卧，再从俯卧翻回仰卧，小身体越来越灵活了。</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">💪</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>会独坐</h4>
+                    <div class="milestone-date">2026年2月28日 · 6个半月</div>
+                    <p class="milestone-desc">不用扶也能稳稳坐住，坐起来的世界果然不一样！</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🐛</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>会爬行</h4>
+                    <div class="milestone-date">2026年5月10日 · 9个月</div>
+                    <p class="milestone-desc">从匍匐前进到手膝爬行，速度越来越快，家里到处都是探索的身影。</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🧱</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>扶物站立</h4>
+                    <div class="milestone-date">2026年6月20日 · 10个半月</div>
+                    <p class="milestone-desc">扶着沙发、围栏都能站起来，还会沿着边挪动小碎步。</p>
+                </div>
+                <div class="milestone-card pending">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🚶</div>
+                        <span class="milestone-badge pending">进行中</span>
+                    </div>
+                    <h4>独自行走</h4>
+                    <div class="milestone-date">预计 13-15个月</div>
+                    <p class="milestone-desc">现在已经能扶着走了，相信独立行走的日子也不远啦！</p>
+                </div>
+                <div class="milestone-card pending">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🏃</div>
+                        <span class="milestone-badge pending">待解锁</span>
+                    </div>
+                    <h4>会跑会跳</h4>
+                    <div class="milestone-date">预计 2岁左右</div>
+                    <p class="milestone-desc">期待小家伙满地跑、蹦蹦跳跳的样子～</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 语言发展里程碑 -->
+        <section class="milestone-category">
+            <h3 class="category-title">
+                <span class="icon">🗣️</span>
+                语言发展
+            </h3>
+            <div class="milestone-cards">
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">😭</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>第一声啼哭</h4>
+                    <div class="milestone-date">2025年8月10日 · 出生</div>
+                    <p class="milestone-desc">响亮的啼哭宣告着你的到来，这是你和世界说的第一句话。</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">😊</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>社会性微笑</h4>
+                    <div class="milestone-date">2025年10月8日 · 2个月</div>
+                    <p class="milestone-desc">第一次对着妈妈笑，眼睛弯成了小月牙，心都化了～</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">👨</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>叫"爸爸"</h4>
+                    <div class="milestone-date">2026年8月8日 · 12个月</div>
+                    <p class="milestone-desc">第一次清晰地叫出"爸爸"，爸爸激动得红了眼眶。</p>
+                </div>
+                <div class="milestone-card pending">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">👩</div>
+                        <span class="milestone-badge pending">进行中</span>
+                    </div>
+                    <h4>叫"妈妈"</h4>
+                    <div class="milestone-date">预计 13个月左右</div>
+                    <p class="milestone-desc">妈妈每天都在期待这一声"妈妈"呢～</p>
+                </div>
+                <div class="milestone-card pending">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">💬</div>
+                        <span class="milestone-badge pending">待解锁</span>
+                    </div>
+                    <h4>说简单词语</h4>
+                    <div class="milestone-date">预计 15-18个月</div>
+                    <p class="milestone-desc">期待你说出更多有意思的话，小话痨上线倒计时！</p>
+                </div>
+                <div class="milestone-card pending">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">📖</div>
+                        <span class="milestone-badge pending">待解锁</span>
+                    </div>
+                    <h4>说完整句子</h4>
+                    <div class="milestone-date">预计 2-3岁</div>
+                    <p class="milestone-desc">想象一下你用小奶音说完整句子的样子，一定超可爱！</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 认知与社交里程碑 -->
+        <section class="milestone-category">
+            <h3 class="category-title">
+                <span class="icon">🧠</span>
+                认知与社交
+            </h3>
+            <div class="milestone-cards">
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">👀</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>追视物体</h4>
+                    <div class="milestone-date">2025年9月 · 1个月</div>
+                    <p class="milestone-desc">眼睛会跟着移动的物体转，小脑袋也开始转动了。</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🎯</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>认出爸妈</h4>
+                    <div class="milestone-date">2025年11月 · 3个月</div>
+                    <p class="milestone-desc">看到爸爸妈妈就会开心地笑，认人小能手！</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🤲</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>伸手抓物</h4>
+                    <div class="milestone-date">2025年12月 · 4个月</div>
+                    <p class="milestone-desc">看到喜欢的东西会伸手去抓，小手越来越灵活了。</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🎵</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>听到音乐就动</h4>
+                    <div class="milestone-date">2026年4月 · 8个月</div>
+                    <p class="milestone-desc">一听到儿歌就摇头晃脑，小屁股还会一扭一扭的～</p>
+                </div>
+                <div class="milestone-card achieved">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">👋</div>
+                        <span class="milestone-badge achieved">✓ 已达成</span>
+                    </div>
+                    <h4>会挥手拜拜</h4>
+                    <div class="milestone-date">2026年7月 · 11个月</div>
+                    <p class="milestone-desc">出门的时候会挥小手说拜拜，小模样超可爱！</p>
+                </div>
+                <div class="milestone-card pending">
+                    <div class="milestone-header">
+                        <div class="milestone-icon">🧩</div>
+                        <span class="milestone-badge pending">待解锁</span>
+                    </div>
+                    <h4>会玩拼图</h4>
+                    <div class="milestone-date">预计 18个月-2岁</div>
+                    <p class="milestone-desc">期待你用小智慧拼出第一块拼图～</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 成就徽章 -->
+        <section class="achievements-section">
+            <h2 class="achievements-title">🏅 成就徽章</h2>
+            <div class="achievements-grid">
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">👶</div>
+                    <div class="achievement-name">出生小勇士</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">😊</div>
+                    <div class="achievement-name">微笑天使</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">🔄</div>
+                    <div class="achievement-name">翻身达人</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">🪑</div>
+                    <div class="achievement-name">独坐王者</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">🐛</div>
+                    <div class="achievement-name">爬行健将</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">🍼</div>
+                    <div class="achievement-name">干饭小能手</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">🦷</div>
+                    <div class="achievement-name">长牙纪念</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="achievement-emoji">🎂</div>
+                    <div class="achievement-name">一岁啦</div>
+                </div>
+                <div class="achievement-badge locked">
+                    <div class="achievement-emoji">🚶</div>
+                    <div class="achievement-name">第一步</div>
+                </div>
+                <div class="achievement-badge locked">
+                    <div class="achievement-emoji">🗣️</div>
+                    <div class="achievement-name">小话痨</div>
+                </div>
+                <div class="achievement-badge locked">
+                    <div class="achievement-emoji">🚽</div>
+                    <div class="achievement-name">如厕大师</div>
+                </div>
+                <div class="achievement-badge locked">
+                    <div class="achievement-emoji">🎒</div>
+                    <div class="achievement-name">幼儿园新生</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <h3>👶 小宝贝成长记</h3>
+                <p>记录成长，珍藏感动<br>用爱陪伴宝贝每一天</p>
+            </div>
+            <div>
+                <h3>快速导航</h3>
+                <p><a href="index.html">首页</a></p>
+                <p><a href="growth.html">成长时光</a></p>
+                <p><a href="gallery.html">精彩相册</a></p>
+            </div>
+            <div>
+                <h3>更多内容</h3>
+                <p><a href="milestones.html">成长里程碑</a></p>
+                <p><a href="diary.html">亲子日记</a></p>
+                <p><a href="about.html">关于我们</a></p>
+            </div>
+            <div>
+                <h3>联系我们</h3>
+                <p>💌 baby@example.com</p>
+                <p>📱 关注微信公众号</p>
+                <p>💬 分享成长喜悦</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 小宝贝成长记 · 用爱记录每一刻 · Made with 💙
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
