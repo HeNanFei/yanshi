@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>成长时光</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f1f0f0",
+                        "on-primary-fixed-variant": "#4a4739",
+                        "on-background": "#1a1c1c",
+                        "surface-container-highest": "#e3e2e1",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#fdcfcf",
+                        "primary": "#625f4f",
+                        "tertiary-fixed": "#c8e9e2",
+                        "surface-variant": "#e3e2e1",
+                        "inverse-primary": "#ccc6b4",
+                        "primary-fixed-dim": "#ccc6b4",
+                        "on-primary-fixed": "#1e1c10",
+                        "on-tertiary-fixed": "#01201c",
+                        "tertiary": "#46645f",
+                        "surface-dim": "#dadad9",
+                        "surface-bright": "#faf9f8",
+                        "tertiary-fixed-dim": "#adcdc7",
+                        "secondary-fixed": "#ffdad9",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#625f4f",
+                        "inverse-surface": "#2f3130",
+                        "sky-blue": "#D1E9F6",
+                        "outline-variant": "#cbc6bb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#2f4c47",
+                        "primary-fixed": "#e8e2cf",
+                        "warm-border": "#F2E8D5",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary-fixed": "#2d1415",
+                        "surface-container": "#eeeeed",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e9e8e7",
+                        "text-muted": "#A39788",
+                        "on-tertiary": "#ffffff",
+                        "background": "#faf9f8",
+                        "surface": "#faf9f8",
+                        "text-main": "#5C5346",
+                        "primary-container": "#fff9e5",
+                        "secondary-fixed-dim": "#e8bcbc",
+                        "on-surface-variant": "#49473f",
+                        "secondary": "#785656",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#e3fff9",
+                        "on-secondary-fixed-variant": "#5e3e3f",
+                        "surface-container-low": "#f4f3f2",
+                        "on-primary-container": "#767262",
+                        "on-tertiary-container": "#5a7873",
+                        "on-secondary-container": "#795657",
+                        "on-error": "#ffffff",
+                        "outline": "#7a776e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "20px",
+                        "container-max": "800px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "display-hero-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Be Vietnam Pro"],
+                        "display-hero": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "caption": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "display-hero-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["13px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-hero": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ambient-shadow { box-shadow: 0 8px 24px -4px rgba(255, 249, 229, 0.4), 0 4px 8px -2px rgba(255, 209, 209, 0.2); }
+        .timeline-line::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 2px; background-color: #F2E8D5; z-index: -1; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen pb-32">
+<!-- TopAppBar (Shared Component) -->
+<header class="w-full top-0 sticky bg-background dark:bg-background z-50">
+<div class="flex items-center justify-between px-gutter-mobile py-md w-full">
+<div class="flex items-center gap-xs">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A soft, beautifully lit profile portrait of a smiling baby wrapped in cozy pastel blankets. The lighting is bright and warm, emphasizing the gentle, nurturing mood of a modern nursery. A creamy yellow background enhances the sweet, approachable aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXEApDd7U1la8I5A8uF8GWa1gdFoFRuewHEkvTaYG9jWXVmZjILvbKhPsymGb7bjeuL3ANWSU0_ViEhisywWiqGqGDrujbdai7fSfWxd2KDw4ne8XIKibSshHeNALYkjXkf6jkUYcsyatsI-p1AWBdDf1nxn7udB4nPs_-Pu1WpHsAiCTAgxUMNy-G2iEe-iuN11tge38QpejnVrBv0-zwhuPSAZzWfn9Q-c3LrifJLoWgXwQqDcCJ"/>
+</div>
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim tracking-tight">小宝贝成长记</h1>
+<button class="text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-150 p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter-mobile pt-md pb-xl">
+<!-- Header Section -->
+<div class="mb-lg">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-text-main mb-xs">成长时光</h2>
+<p class="font-body-md text-body-md text-text-muted">记录宝宝每一个珍贵的瞬间与健康指标。</p>
+</div>
+<!-- Growth Stats Section -->
+<section class="bg-surface-container-lowest rounded-[24px] p-[20px] ambient-shadow mb-xl">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-text-main">成长发育记录</h3>
+<span class="material-symbols-outlined text-tertiary opacity-80" data-icon="monitoring">monitoring</span>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<!-- Height Chart Area -->
+<div class="bg-primary-container/30 rounded-xl p-md">
+<p class="font-label-md text-label-md text-on-primary-container mb-sm">身高 (cm)</p>
+<div class="flex items-end h-24 gap-2">
+<div class="w-full bg-sky-blue/40 rounded-t-sm h-[40%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">60</span></div>
+<div class="w-full bg-sky-blue/60 rounded-t-sm h-[55%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">65</span></div>
+<div class="w-full bg-sky-blue/80 rounded-t-sm h-[70%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">71</span></div>
+<div class="w-full bg-sky-blue rounded-t-sm h-[85%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">75</span></div>
+</div>
+</div>
+<!-- Weight Chart Area -->
+<div class="bg-primary-container/30 rounded-xl p-md">
+<p class="font-label-md text-label-md text-on-primary-container mb-sm">体重 (kg)</p>
+<div class="flex items-end h-24 gap-2">
+<div class="w-full bg-tertiary-fixed/40 rounded-t-sm h-[30%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">5.5</span></div>
+<div class="w-full bg-tertiary-fixed/60 rounded-t-sm h-[45%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">7.2</span></div>
+<div class="w-full bg-tertiary-fixed/80 rounded-t-sm h-[60%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">8.5</span></div>
+<div class="w-full bg-tertiary-fixed rounded-t-sm h-[75%] relative"><span class="absolute -top-5 left-1/2 -translate-x-1/2 font-caption text-caption text-text-muted">9.8</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<div class="relative timeline-line pl-md">
+<!-- Event 1: First Birthday -->
+<article class="relative mb-lg pl-xl">
+<div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-primary-container border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="cake" data-weight="fill" style="font-variation-settings: 'FILL' 1;">cake</span>
+</div>
+<div class="bg-surface-container-lowest rounded-[24px] p-[20px] ambient-shadow">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-headline-md text-headline-md text-text-main">一岁生日快乐！</h4>
+<span class="bg-secondary-container/50 text-on-secondary-container font-caption text-caption px-2 py-1 rounded-full">2023.10.15</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">时间过得真快，转眼间小宝贝已经一岁啦！今天吃到了人生中第一口小蛋糕，满脸都是奶油，可爱极了。</p>
+<img class="w-full h-48 object-cover rounded-[12px]" data-alt="A joyful 1-year-old baby wearing a tiny party hat, sitting behind a small pastel-colored smash cake. The baby's face is playfully smeared with frosting. The scene is brightly lit with warm, soft light, featuring creamy background tones, minimal decorations, and a cozy, nurturing aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiRn56hr_CTmqa8bORjKA7HI0SvmNY-CWbf_5wFfJ-Iag-Cic4EOxYJoq5ZDWNT0_o6jhxt1c58ljj5WAa_lL0jLkty8fdJ-BeieDx175vbSubZIteTXoeLQa4YIFIeUHVe06EvmGdQDsX-7qPV6wvsN5-hO6tC3dHPgnO3o_wdPfv_vi5oQSkjSrJVKUEdy7HMVwzp2zP5Yn6KJjDTDAQBAttqLWj-JuUq0MKPgUeGt8pReO8Rceo"/>
+</div>
+</article>
+<!-- Event 2: Sitting Up -->
+<article class="relative mb-lg pl-xl">
+<div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-sky-blue border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="airline_seat_recline_normal" data-weight="fill" style="font-variation-settings: 'FILL' 1;">airline_seat_recline_normal</span>
+</div>
+<div class="bg-surface-container-lowest rounded-[24px] p-[20px] ambient-shadow">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-headline-md text-headline-md text-text-main">能自己坐稳啦</h4>
+<span class="bg-sky-blue/30 text-primary font-caption text-caption px-2 py-1 rounded-full">2023.05.20</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">今天不用靠垫也能自己稳稳地坐好几分钟了，小手还努力去够前面的玩具，背挺得笔直。</p>
+<img class="w-full h-40 object-cover rounded-[12px]" data-alt="A sweet baby sitting independently on a plush, soft rug in a warmly lit modern nursery. The baby is reaching out slightly for a soft plush toy. The lighting is gentle and inviting, highlighting pastel mint and sky blue accents against a calming cream background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlYq8PWo6eETLesdNvrzXAnWhCprUSKcwITA9ippjnOGC4LgHJht0FCyip3IObS7YK6Te7ibe_ytrnySLf5XVEZx6KErQEOM27XjP1IvmP4G87ZvR2w2cqJKe430OinoiiIG-yqYmWM4Ahr70XluK-N3y2HhNni9IUqAQaRcnMHS8ss6jKU3UBk0u8IgEQwoCaPc2RagzH9d3QyrXDpvxo8_eAcJ-G8M2vjW-3l7g7jNK0A8vmoSvM"/>
+</div>
+</article>
+<!-- Event 3: First Smile -->
+<article class="relative mb-lg pl-xl">
+<div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-tertiary-fixed border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+<span class="material-symbols-outlined text-on-tertiary-fixed text-[16px]" data-icon="mood" data-weight="fill" style="font-variation-settings: 'FILL' 1;">mood</span>
+</div>
+<div class="bg-surface-container-lowest rounded-[24px] p-[20px] ambient-shadow">
+<div class="flex justify-between items-start mb-sm">
+<h4 class="font-headline-md text-headline-md text-text-main">第一次笑出声</h4>
+<span class="bg-tertiary-fixed/40 text-on-tertiary-fixed font-caption text-caption px-2 py-1 rounded-full">2023.01.12</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">早上刚醒来，爸爸逗了一下，竟然咯咯咯地笑出了声！心都要化了。</p>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl shadow-[0_-4px_20px_rgba(255,249,229,0.1)] bg-surface dark:bg-surface-container-low md:hidden">
+<div class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md mt-1">首页</span>
+</a>
+<!-- Active Tab -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring" data-weight="fill" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-label-md text-label-md mt-1">成长时光</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="photo_library">photo_library</span>
+<span class="font-label-md text-label-md mt-1">宝宝相册</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-md text-label-md mt-1">亲子日记</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md mt-1">我的</span>
+</a>
+</div>
+</nav>
+<!-- Floating Action Button -->
+<button class="fixed bottom-[100px] right-gutter-mobile w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center shadow-[0_8px_20px_rgba(253,207,207,0.4)] hover:opacity-90 active:scale-95 transition-all z-40 md:hidden">
+<span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+</button>
+</body></html>

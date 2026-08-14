@@ -1,579 +1,254 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>成长时光 - 小宝贝成长记</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>成长时光 - 洵洵成长记</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                colors: {
+                    primary: "#625f4f", secondary: "#785656", tertiary: "#46645f",
+                    background: "#faf9f8", surface: "#faf9f8",
+                    "surface-container-low": "#f4f3f2", "surface-container-lowest": "#ffffff",
+                    "primary-container": "#fff9e5", "secondary-container": "#fdcfcf",
+                    "tertiary-container": "#e3fff9", "tertiary-fixed": "#c8e9e2",
+                    "primary-fixed": "#e8e2cf", "secondary-fixed": "#ffdad9",
+                    "on-primary": "#ffffff", "on-secondary": "#ffffff", "on-tertiary": "#ffffff",
+                    "on-primary-container": "#767262", "on-secondary-container": "#795657",
+                    "on-tertiary-container": "#5a7873", "on-tertiary-fixed": "#01201c",
+                    "on-surface": "#1a1c1c", "on-surface-variant": "#49473f",
+                    "text-main": "#5C5346", "text-muted": "#A39788",
+                    "sky-blue": "#D1E9F6", "warm-border": "#F2E8D5",
+                },
+                spacing: { "gutter-mobile": "20px", "container-max": "800px", xl: "32px", lg: "24px", md: "16px", sm: "12px", xs: "8px" },
+                fontFamily: { display: ["Plus Jakarta Sans", "PingFang SC", "Microsoft YaHei", "sans-serif"], body: ["Be Vietnam Pro", "PingFang SC", "Microsoft YaHei", "sans-serif"] },
+                fontSize: {
+                    hero: ["26px", { lineHeight: "32px", fontWeight: "700" }],
+                    hl: ["22px", { lineHeight: "28px", fontWeight: "700" }],
+                    hm: ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                    bl: ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                    bm: ["14px", { lineHeight: "1.6", fontWeight: "400" }],
+                    lm: ["13px", { lineHeight: "16px", fontWeight: "600" }],
+                    cap: ["11px", { lineHeight: "14px", fontWeight: "500" }],
+                }
+            }}
+        }
+    </script>
     <style>
-        /* ===== 时间轴 ===== */
-        .timeline-section {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .timeline {
-            position: relative;
-            padding: 20px 0;
-        }
-
-        .timeline::before {
-            content: '';
+        body { background-color: #faf9f8; }
+        .ambient-shadow { box-shadow: 0 4px 20px rgba(255,249,229,0.2); }
+        .soft-shadow { box-shadow: 0 8px 32px rgba(98,95,79,0.05); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { min-height: max(884px, 100dvh); }
+        .timeline-line {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary-light), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            display: flex;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .timeline-item:nth-child(odd) {
-            flex-direction: row-reverse;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            text-align: right;
-            margin-right: 50px;
-            margin-left: 0;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: 50px;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 4px solid var(--primary);
-            border-radius: 50%;
-            z-index: 2;
-            box-shadow: 0 0 0 6px rgba(107, 185, 232, 0.2);
-        }
-
-        .timeline-content {
-            width: calc(50% - 50px);
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .timeline-date {
-            display: inline-block;
-            padding: 6px 16px;
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            color: white;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .timeline-month {
-            font-size: 14px;
-            color: var(--secondary);
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .timeline-content h3 {
-            font-size: 22px;
-            color: var(--primary-dark);
-            margin-bottom: 12px;
-        }
-
-        .timeline-content p {
-            font-size: 15px;
-            color: var(--text-gray);
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .timeline-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-tags {
-            justify-content: flex-end;
-        }
-
-        .timeline-tag {
-            padding: 4px 12px;
-            background: rgba(143, 214, 180, 0.15);
-            color: var(--secondary);
-            border-radius: 10px;
-            font-size: 12px;
-        }
-
-        .timeline-image {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #E8F4FD, #D4EFDF);
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-        }
-
-        /* ===== 身高体重区域 ===== */
-        #height-weight {
-            background: white;
-            border-radius: 30px;
-            padding: 50px;
-            max-width: 1000px;
-            margin: 60px auto;
-            box-shadow: var(--shadow);
-        }
-
-        .chart-title {
-            text-align: center;
-            font-size: 28px;
-            color: var(--primary-dark);
-            margin-bottom: 40px;
-        }
-
-        .chart-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .chart-box {
-            background: var(--bg-light);
-            border-radius: 20px;
-            padding: 30px;
-        }
-
-        .chart-box h4 {
-            font-size: 18px;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .bar-chart {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-around;
-            height: 200px;
-            padding: 0 10px;
-        }
-
-        .bar-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-        }
-
-        .bar {
-            width: 30px;
-            background: linear-gradient(to top, var(--primary), var(--primary-light));
-            border-radius: 8px 8px 0 0;
-            transition: all 0.3s ease;
-            position: relative;
-            min-height: 10px;
-        }
-
-        .bar:hover {
-            transform: scaleX(1.1);
-        }
-
-        .bar::after {
-            content: attr(data-value);
-            position: absolute;
-            top: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 11px;
-            color: var(--primary-dark);
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .bar-label {
-            font-size: 12px;
-            color: var(--text-gray);
-        }
-
-        .growth-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .growth-table th,
-        .growth-table td {
-            padding: 12px 15px;
-            text-align: center;
-            border-bottom: 1px solid #e8f0f5;
-            font-size: 14px;
-        }
-
-        .growth-table th {
-            background: var(--bg-light);
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
-
-        .growth-table tr:hover td {
-            background: rgba(107, 185, 232, 0.05);
-        }
-
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-dot {
-                left: 20px;
-            }
-
-            .timeline-item,
-            .timeline-item:nth-child(odd) {
-                flex-direction: row;
-            }
-
-            .timeline-content,
-            .timeline-item:nth-child(odd) .timeline-content {
-                width: calc(100% - 60px);
-                margin-left: 60px !important;
-                margin-right: 0 !important;
-                text-align: left !important;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-tags {
-                justify-content: flex-start;
-            }
-
-            .chart-container {
-                grid-template-columns: 1fr;
-            }
-
-            #height-weight {
-                padding: 30px 20px;
-            }
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #F2E8D5;
+            margin-left: 15px;
         }
     </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">👶</span>
-                <span>小宝贝成长记</span>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="growth.html" class="active">成长时光</a></li>
-                <li><a href="gallery.html">精彩相册</a></li>
-                <li><a href="milestones.html">成长里程碑</a></li>
-                <li><a href="diary.html">亲子日记</a></li>
-                <li><a href="about.html">关于</a></li>
-            </ul>
+<body class="bg-background text-on-surface font-body-bm min-h-screen pb-24">
+
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-background flex items-center justify-between px-gutter-mobile py-md">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden soft-shadow shrink-0">
+            <img class="w-full h-full object-cover" src="images/微信图片_20260626085611_1416_24.jpg" alt="宝宝头像">
         </div>
-    </nav>
-
-    <div class="page-container">
-        <!-- 页头 -->
-        <div class="page-header">
-            <h1>🌱 成长时光</h1>
-            <p>记录宝贝成长路上的每一个脚印，从新生儿到慢慢长大，每一天都是新的惊喜</p>
-        </div>
-
-        <!-- 时间轴 -->
-        <section class="timeline-section">
-            <div class="timeline">
-                <!-- 第12个月 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2026年8月</div>
-                        <div class="timeline-month">🌸 12个月 · 一岁啦！</div>
-                        <div class="timeline-image">🎂</div>
-                        <h3>宝贝一岁生日！</h3>
-                        <p>今天是宝贝的第一个生日！时间过得好快，仿佛昨天还在襁褓中，今天已经会扶着东西走路了。生日派对上宝贝穿着小西装，可爱极了，抓周的时候抓到了书和笔，将来一定是个爱学习的好孩子～</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">生日</span>
-                            <span class="timeline-tag">周岁</span>
-                            <span class="timeline-tag">重要时刻</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 第10个月 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2026年6月</div>
-                        <div class="timeline-month">☀️ 10个月</div>
-                        <div class="timeline-image">🦶</div>
-                        <h3>扶站小达人</h3>
-                        <p>宝贝现在可以扶着沙发稳稳地站着了，还会沿着沙发挪步。每天都在家里探险，什么都想摸一摸、看一看。最近特别喜欢扔东西，扔完还会咯咯地笑，小调皮蛋一个！</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">大运动</span>
-                            <span class="timeline-tag">扶站</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 第8个月 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2026年4月</div>
-                        <div class="timeline-month">🌸 8个月</div>
-                        <div class="timeline-image">🍼</div>
-                        <h3>开始吃辅食啦</h3>
-                        <p>从六个月开始添加辅食，到现在宝贝已经能吃很多东西了！最喜欢吃南瓜泥和香蕉，每次看到小碗就兴奋得手舞足蹈。不过还是会把食物弄得到处都是，每次吃完饭都像打过仗一样～</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">辅食</span>
-                            <span class="timeline-tag">饮食</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 第6个月 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2026年2月</div>
-                        <div class="timeline-month">❄️ 6个月 · 半岁</div>
-                        <div class="timeline-image">😊</div>
-                        <h3>会坐啦！</h3>
-                        <p>半岁的宝贝已经可以独立坐稳了！虽然有时候还会摇摇晃晃地倒下，但每次都会努力再坐起来。小家伙越来越有个性了，喜欢的玩具会紧紧抓住，不喜欢的会直接推开，小脾气见长呢～</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">独坐</span>
-                            <span class="timeline-tag">半岁</span>
-                            <span class="timeline-tag">大运动</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 第4个月 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025年12月</div>
-                        <div class="timeline-month">🍂 4个月</div>
-                        <div class="timeline-image">🎯</div>
-                        <h3>翻身成功！</h3>
-                        <p>经过几天的努力，宝贝终于会翻身了！从仰躺翻到俯卧，然后就翻不回来了，趴在那里努力抬头的样子超可爱。现在一放到床上就想翻，拦都拦不住，运动细胞看来不错～</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">翻身</span>
-                            <span class="timeline-tag">大运动</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 第2个月 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025年10月</div>
-                        <div class="timeline-month">🍁 2个月</div>
-                        <div class="timeline-image">💝</div>
-                        <h3>第一次社会性微笑</h3>
-                        <p>今天宝贝对着妈妈笑了！不是睡梦中的微笑，是真正看着妈妈的眼睛，然后嘴角上扬，眼睛弯弯的，太治愈了！那一刻所有的辛苦都值得了。妈妈激动得眼泪都快掉下来了～</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">微笑</span>
-                            <span class="timeline-tag">社交发展</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 出生 -->
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2025年8月10日</div>
-                        <div class="timeline-month">☀️ 出生日</div>
-                        <div class="timeline-image">👶</div>
-                        <h3>你好，世界！</h3>
-                        <p>经过漫长的等待，小宝贝终于和我们见面了！一声响亮的啼哭，宣告着你的到来。小小的身体，皱巴巴的脸蛋，却是爸爸妈妈心中最完美的宝贝。欢迎来到这个世界，我们会用全部的爱来守护你。</p>
-                        <div class="timeline-tags">
-                            <span class="timeline-tag">出生</span>
-                            <span class="timeline-tag">第一天</span>
-                            <span class="timeline-tag">重要时刻</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 身高体重 -->
-        <section id="height-weight">
-            <h2 class="chart-title">📊 成长发育记录</h2>
-            <div class="chart-container">
-                <div class="chart-box">
-                    <h4>📏 身高增长曲线</h4>
-                    <div class="bar-chart">
-                        <div class="bar-item">
-                            <div class="bar" style="height: 62%;" data-value="50cm"></div>
-                            <div class="bar-label">出生</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 70%;" data-value="57cm"></div>
-                            <div class="bar-label">3月</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 78%;" data-value="64cm"></div>
-                            <div class="bar-label">6月</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 85%;" data-value="70cm"></div>
-                            <div class="bar-label">9月</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 92%;" data-value="75cm"></div>
-                            <div class="bar-label">12月</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart-box">
-                    <h4>⚖️ 体重增长曲线</h4>
-                    <div class="bar-chart">
-                        <div class="bar-item">
-                            <div class="bar" style="height: 42%;" data-value="3.35kg"></div>
-                            <div class="bar-label">出生</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 65%;" data-value="6.5kg"></div>
-                            <div class="bar-label">3月</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 78%;" data-value="8.2kg"></div>
-                            <div class="bar-label">6月</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 88%;" data-value="9.5kg"></div>
-                            <div class="bar-label">9月</div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar" style="height: 95%;" data-value="10.5kg"></div>
-                            <div class="bar-label">12月</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <table class="growth-table">
-                <thead>
-                    <tr>
-                        <th>月龄</th>
-                        <th>身高 (cm)</th>
-                        <th>体重 (kg)</th>
-                        <th>头围 (cm)</th>
-                        <th>发育评价</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>出生</td>
-                        <td>50</td>
-                        <td>3.35</td>
-                        <td>34</td>
-                        <td>🌟 标准</td>
-                    </tr>
-                    <tr>
-                        <td>1个月</td>
-                        <td>55</td>
-                        <td>4.5</td>
-                        <td>37</td>
-                        <td>🌟 标准</td>
-                    </tr>
-                    <tr>
-                        <td>3个月</td>
-                        <td>62</td>
-                        <td>6.5</td>
-                        <td>41</td>
-                        <td>🌟 标准</td>
-                    </tr>
-                    <tr>
-                        <td>6个月</td>
-                        <td>69</td>
-                        <td>8.5</td>
-                        <td>44</td>
-                        <td>✨ 中上</td>
-                    </tr>
-                    <tr>
-                        <td>9个月</td>
-                        <td>73</td>
-                        <td>9.5</td>
-                        <td>46</td>
-                        <td>🌟 标准</td>
-                    </tr>
-                    <tr>
-                        <td>12个月</td>
-                        <td>76</td>
-                        <td>10.5</td>
-                        <td>47</td>
-                        <td>✨ 中上</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+        <h1 class="font-display text-hero text-primary">成长时光</h1>
     </div>
+    <button class="w-10 h-10 flex items-center justify-center rounded-full text-primary hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+        <span class="material-symbols-outlined text-[22px]">notifications</span>
+    </button>
+</header>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div>
-                <h3>👶 小宝贝成长记</h3>
-                <p>记录成长，珍藏感动<br>用爱陪伴宝贝每一天</p>
+<main class="px-gutter-mobile pt-2 pb-lg max-w-container-max mx-auto">
+    <!-- Stats Hero -->
+    <section class="bg-primary-container rounded-[28px] p-lg mb-xl ambient-shadow relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full blur-xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="flex items-center gap-4 mb-md relative z-10">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden soft-shadow">
+                <img class="w-full h-full object-cover" src="images/微信图片_20260717110048_2875_24.jpg" alt="">
             </div>
             <div>
-                <h3>快速导航</h3>
-                <p><a href="index.html">首页</a></p>
-                <p><a href="growth.html">成长时光</a></p>
-                <p><a href="gallery.html">精彩相册</a></p>
-            </div>
-            <div>
-                <h3>更多内容</h3>
-                <p><a href="milestones.html">成长里程碑</a></p>
-                <p><a href="diary.html">亲子日记</a></p>
-                <p><a href="about.html">关于我们</a></p>
-            </div>
-            <div>
-                <h3>联系我们</h3>
-                <p>💌 baby@example.com</p>
-                <p>📱 关注微信公众号</p>
-                <p>💬 分享成长喜悦</p>
+                <h2 class="font-display text-hl text-primary">洵洵</h2>
+                <p class="font-body-bm text-bm text-on-primary-container">已经成长 <span class="font-bold">330</span> 天啦</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            © 2025 小宝贝成长记 · 用爱记录每一刻 · Made with 💙
+        <div class="grid grid-cols-3 gap-sm relative z-10">
+            <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-3 text-center">
+                <div class="font-display text-hm text-tertiary">10</div>
+                <div class="font-body-cap text-cap text-text-muted mt-1">个月</div>
+            </div>
+            <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-3 text-center">
+                <div class="font-display text-hm text-secondary">73cm</div>
+                <div class="font-body-cap text-cap text-text-muted mt-1">身高</div>
+            </div>
+            <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-3 text-center">
+                <div class="font-display text-hm text-primary">9.5kg</div>
+                <div class="font-body-cap text-cap text-text-muted mt-1">体重</div>
+            </div>
         </div>
-    </footer>
+    </section>
 
-    <script src="js/main.js"></script>
+    <!-- Growth Chart Card -->
+    <section class="bg-surface-container-lowest rounded-[24px] p-md soft-shadow mb-xl">
+        <div class="flex items-center justify-between mb-md">
+            <h3 class="font-display text-hm text-text-main">📊 成长曲线</h3>
+            <span class="font-body-cap text-cap text-text-muted">身高 / 体重</span>
+        </div>
+        <div class="grid grid-cols-2 gap-md">
+            <div>
+                <div class="font-body-lm text-lm text-text-main mb-2">身高</div>
+                <div class="flex items-end gap-1 h-28 bg-surface-container-low rounded-xl p-2">
+                    <div class="flex-1 bg-tertiary-fixed/60 rounded-t-md" style="height: 50%"></div>
+                    <div class="flex-1 bg-tertiary-fixed/70 rounded-t-md" style="height: 60%"></div>
+                    <div class="flex-1 bg-tertiary-fixed/80 rounded-t-md" style="height: 70%"></div>
+                    <div class="flex-1 bg-tertiary-fixed/90 rounded-t-md" style="height: 80%"></div>
+                    <div class="flex-1 bg-tertiary rounded-t-md" style="height: 90%"></div>
+                </div>
+                <div class="flex justify-between mt-1 font-body-cap text-cap text-text-muted">
+                    <span>出生</span><span>6月</span>
+                </div>
+            </div>
+            <div>
+                <div class="font-body-lm text-lm text-text-main mb-2">体重</div>
+                <div class="flex items-end gap-1 h-28 bg-surface-container-low rounded-xl p-2">
+                    <div class="flex-1 bg-secondary-container/60 rounded-t-md" style="height: 40%"></div>
+                    <div class="flex-1 bg-secondary-container/70 rounded-t-md" style="height: 55%"></div>
+                    <div class="flex-1 bg-secondary-container/80 rounded-t-md" style="height: 70%"></div>
+                    <div class="flex-1 bg-secondary-container/90 rounded-t-md" style="height: 85%"></div>
+                    <div class="flex-1 bg-secondary rounded-t-md" style="height: 95%"></div>
+                </div>
+                <div class="flex justify-between mt-1 font-body-cap text-cap text-text-muted">
+                    <span>出生</span><span>10月</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section>
+        <div class="flex items-center justify-between mb-md">
+            <h3 class="font-display text-hm text-text-main">🌱 成长时间轴</h3>
+        </div>
+
+        <div class="relative pl-2">
+            <div class="timeline-line"></div>
+
+            <!-- Event 1 - 扶站 -->
+            <article class="relative mb-lg pl-xl">
+                <div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-secondary-container border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+                    <span class="material-symbols-outlined text-on-secondary-container text-[16px] icon-filled">front_hand</span>
+                </div>
+                <div class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow">
+                    <div class="flex justify-between items-start mb-sm">
+                        <h4 class="font-display text-hm text-text-main">能扶着沙发站啦</h4>
+                        <span class="bg-secondary-container/50 text-on-secondary-container font-body-cap text-cap px-2 py-1 rounded-full">2026.07</span>
+                    </div>
+                    <p class="font-body-bm text-bm text-on-surface-variant mb-md">洵洵最近进步超大！扶着沙发就能自己站起来，还能小步挪动一下，小腿腿越来越有劲儿啦～</p>
+                    <img class="w-full h-40 object-cover rounded-[12px]" src="images/微信图片_20260717110048_2875_24.jpg" alt="">
+                </div>
+            </article>
+
+            <!-- Event 2 - 独坐 -->
+            <article class="relative mb-lg pl-xl">
+                <div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-sky-blue border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+                    <span class="material-symbols-outlined text-primary text-[16px] icon-filled">airline_seat_recline_normal</span>
+                </div>
+                <div class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow">
+                    <div class="flex justify-between items-start mb-sm">
+                        <h4 class="font-display text-hm text-text-main">能自己坐稳啦</h4>
+                        <span class="bg-sky-blue/30 text-primary font-body-cap text-cap px-2 py-1 rounded-full">2026.04</span>
+                    </div>
+                    <p class="font-body-bm text-bm text-on-surface-variant mb-md">七个月的洵洵已经可以独立坐稳了！虽然有时候还会摇摇晃晃，但每次都会努力再坐起来。</p>
+                    <img class="w-full h-40 object-cover rounded-[12px]" src="images/微信图片_20260608165631_8_24.jpg" alt="">
+                </div>
+            </article>
+
+            <!-- Event 3 - 翻身 -->
+            <article class="relative mb-lg pl-xl">
+                <div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-tertiary-fixed border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+                    <span class="material-symbols-outlined text-on-tertiary-fixed text-[16px] icon-filled">footprint</span>
+                </div>
+                <div class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow">
+                    <div class="flex justify-between items-start mb-sm">
+                        <h4 class="font-display text-hm text-text-main">第一次翻身</h4>
+                        <span class="bg-tertiary-fixed/40 text-on-tertiary-fixed font-body-cap text-cap px-2 py-1 rounded-full">2025.12</span>
+                    </div>
+                    <p class="font-body-bm text-bm text-on-surface-variant">今天洵洵用力一蹬腿，竟然自己从仰卧翻成了趴着！小身子一扭一扭的，简直太可爱了，老母亲的心都化了～</p>
+                </div>
+            </article>
+
+            <!-- Event 4 - 第一次笑 -->
+            <article class="relative mb-lg pl-xl">
+                <div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-primary-container border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+                    <span class="material-symbols-outlined text-on-primary-container text-[16px] icon-filled">mood</span>
+                </div>
+                <div class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow">
+                    <div class="flex justify-between items-start mb-sm">
+                        <h4 class="font-display text-hm text-text-main">第一次社会性微笑</h4>
+                        <span class="bg-primary-container text-on-primary-container font-body-cap text-cap px-2 py-1 rounded-full">2025.11</span>
+                    </div>
+                    <p class="font-body-bm text-bm text-on-surface-variant">今天洵洵对着妈妈笑了！不是睡梦中的微笑，是真正看着妈妈的眼睛，然后嘴角上扬，太治愈了！</p>
+                </div>
+            </article>
+
+            <!-- Event 5 - 出生 -->
+            <article class="relative mb-lg pl-xl">
+                <div class="absolute left-[-16px] top-1 w-8 h-8 rounded-full bg-secondary-container border-2 border-surface-container-lowest flex items-center justify-center shadow-sm z-10">
+                    <span class="material-symbols-outlined text-on-secondary-container text-[16px] icon-filled">crib</span>
+                </div>
+                <div class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow">
+                    <div class="flex justify-between items-start mb-sm">
+                        <h4 class="font-display text-hm text-text-main">你好，世界！</h4>
+                        <span class="bg-secondary-container/50 text-on-secondary-container font-body-cap text-cap px-2 py-1 rounded-full">2025.09</span>
+                    </div>
+                    <p class="font-body-bm text-bm text-on-surface-variant mb-md">经过漫长的等待，小洵洵终于和我们见面了！小小的身体，皱巴巴的脸蛋，却是爸爸妈妈心中最完美的宝贝。</p>
+                    <img class="w-full h-40 object-cover rounded-[12px]" src="images/微信图片_20251028094334_21479_88.jpg" alt="">
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<!-- FAB -->
+<button class="fixed bottom-24 right-gutter-mobile w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center shadow-[0_8px_20px_rgba(253,207,207,0.4)] hover:opacity-90 active:scale-95 transition-all z-40">
+    <span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_20px_rgba(98,95,79,0.05)] bg-surface md:hidden">
+    <a href="index.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">home</span>
+        <span class="font-body-lm text-lm">首页</span>
+    </a>
+    <a href="growth.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1 icon-filled">monitoring</span>
+        <span class="font-body-lm text-lm">成长时光</span>
+    </a>
+    <a href="gallery.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">photo_library</span>
+        <span class="font-body-lm text-lm">宝宝相册</span>
+    </a>
+    <a href="diary.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">auto_stories</span>
+        <span class="font-body-lm text-lm">亲子日记</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">person</span>
+        <span class="font-body-lm text-lm">我的</span>
+    </a>
+</nav>
+
 </body>
 </html>

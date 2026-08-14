@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我的 - 小宝贝成长记</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f1f0f0",
+                      "on-primary-fixed-variant": "#4a4739",
+                      "on-background": "#1a1c1c",
+                      "surface-container-highest": "#e3e2e1",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#fdcfcf",
+                      "primary": "#625f4f",
+                      "tertiary-fixed": "#c8e9e2",
+                      "surface-variant": "#e3e2e1",
+                      "inverse-primary": "#ccc6b4",
+                      "primary-fixed-dim": "#ccc6b4",
+                      "on-primary-fixed": "#1e1c10",
+                      "on-tertiary-fixed": "#01201c",
+                      "tertiary": "#46645f",
+                      "surface-dim": "#dadad9",
+                      "surface-bright": "#faf9f8",
+                      "tertiary-fixed-dim": "#adcdc7",
+                      "secondary-fixed": "#ffdad9",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#625f4f",
+                      "inverse-surface": "#2f3130",
+                      "sky-blue": "#D1E9F6",
+                      "outline-variant": "#cbc6bb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#2f4c47",
+                      "primary-fixed": "#e8e2cf",
+                      "warm-border": "#F2E8D5",
+                      "on-surface": "#1a1c1c",
+                      "on-secondary-fixed": "#2d1415",
+                      "surface-container": "#eeeeed",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e9e8e7",
+                      "text-muted": "#A39788",
+                      "on-tertiary": "#ffffff",
+                      "background": "#faf9f8",
+                      "surface": "#faf9f8",
+                      "text-main": "#5C5346",
+                      "primary-container": "#fff9e5",
+                      "secondary-fixed-dim": "#e8bcbc",
+                      "on-surface-variant": "#49473f",
+                      "secondary": "#785656",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#e3fff9",
+                      "on-secondary-fixed-variant": "#5e3e3f",
+                      "surface-container-low": "#f4f3f2",
+                      "on-primary-container": "#767262",
+                      "on-tertiary-container": "#5a7873",
+                      "on-secondary-container": "#795657",
+                      "on-error": "#ffffff",
+                      "outline": "#7a776e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px",
+                      "2xl": "1rem",
+                      "3xl": "1.5rem"
+              },
+              "spacing": {
+                      "gutter-mobile": "20px",
+                      "container-max": "800px",
+                      "base": "4px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "sm": "12px",
+                      "xs": "8px"
+              },
+              "fontFamily": {
+                      "display-hero-mobile": ["Plus Jakarta Sans"],
+                      "label-md": ["Be Vietnam Pro"],
+                      "display-hero": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "body-lg": ["Be Vietnam Pro"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "caption": ["Be Vietnam Pro"]
+              },
+              "fontSize": {
+                      "display-hero-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "display-hero": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); }
+        .ambient-shadow { box-shadow: 0 8px 32px rgba(255,249,229,0.5); }
+        .ambient-shadow-interactive { box-shadow: 0 4px 16px rgba(255,209,209,0.3); }
+        .glass-panel { background: rgba(255,255,255,0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased text-on-surface pb-[90px] md:pb-0">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-background dark:bg-background flex items-center justify-between px-gutter-mobile py-md w-full flat no shadows">
+<div class="flex items-center gap-sm cursor-pointer hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A soft, watercolor-style illustration of a cute baby animal, perhaps a bunny or a bear cub, sleeping peacefully surrounded by pastel colored stars and moons. The style is warm, cozy, and suitable for a nursery app profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUGj9JOtMzc-L5n36lcm6xejnb3cWRO1YbVyhCZX61_qrPKMXwrE7yEvdljMX_qeFNfA96XxdUBpuKHrJyzk-AQepUFSrxpzEE9E24DTrC-howU_E4yeEUl8plFKPOGv2P9mJ1tX_W4kVxy67YYkCw1CDY_-f0lVG83AQbwSK_SH9tdtbE74fXf3Lo1GLZuB9K2JW1n3Y5IiNYXRm-mJ45Leo8gO-Je8YhGTdJiYjs4w370TxzyYMT"/>
+</div>
+<span class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim">小宝贝成长记</span>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-low text-primary hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<main class="px-gutter-mobile md:px-0 max-w-container-max mx-auto md:py-lg space-y-xl">
+<!-- Profile Header Widget -->
+<section class="bg-primary-container rounded-3xl p-lg relative overflow-hidden ambient-shadow">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-2xl"></div>
+<div class="absolute -left-10 -bottom-10 w-32 h-32 bg-secondary-container/30 rounded-full blur-xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-lg">
+<div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg shrink-0">
+<img class="w-full h-full object-cover" data-alt="A heart-warming photograph of a smiling toddler wearing a soft pastel yellow knitted sweater, sitting on a fluffy cream-colored rug. The lighting is soft and natural, emphasizing the cozy and nurturing mood of the nursery theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZz1TuKQ3cbthKGbBhaCoS26PXGn5NDrMMr4ntU1gjIqT2sMg8sp9Z4IjiUv4up_6XP8rc4sBJ_-o3--zNX0-Y1jBGey5FiwAMXeZirXUj6yeqYua2hc1deBmHwjoVPq3qxEZ6DPETaZUpGCDD98XmHHIcyniEYL7GzHxdlJMj7vQfqrA0EmeVqPvrlYpjkcC4PSV2Dkafns9KhDypKuIfq6L3cz25frCsSuXQmoyLf6-au5KFxD8t"/>
+</div>
+<div class="text-center md:text-left flex-1">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-1">小汤圆</h1>
+<p class="font-body-md text-body-md text-on-primary-container mb-md">1岁 2个月 15天</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-sm">
+<div class="bg-white/60 px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="height">height</span>
+<span class="font-caption text-caption text-text-main">78 cm</span>
+</div>
+<div class="bg-white/60 px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary" data-icon="scale">scale</span>
+<span class="font-caption text-caption text-text-main">10.5 kg</span>
+</div>
+<div class="bg-white/60 px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="favorite">favorite</span>
+<span class="font-caption text-caption text-text-main">健康良好</span>
+</div>
+</div>
+</div>
+<button class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-sm hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+</div>
+</section>
+<!-- Family Members -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-md px-xs">家庭成员</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md">
+<!-- Mom -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex flex-col items-center text-center ambient-shadow-interactive cursor-pointer hover:-translate-y-1 transition-transform">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-sm border-2 border-secondary-container">
+<img class="w-full h-full object-cover" data-alt="A portrait of a gentle young woman with soft natural makeup, smiling softly. She is wearing a cozy cream-colored linen shirt. The background is a soft, blurred pastel pink, fitting the warm, approaching nursery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzlZq9jsjoDkYWHxBPocjz4QkRKo12SMy8exqhDV59K6HvtR_Ajxqb4c88vHqZWkey2_aNYb0ylk5ZcsnC0jVvtHJDBiAWmUEb9wDC8iGzMgvav97SJOFDg8sb5r7msWY8fGrICWZjgPHhxco81Rh94SSpJnCGY65dfjtDRmrCyR6USad43Y5deGOBzkLRBdfZEjgFvziB260F-D0aQijN4YvQEdYOooZVCr2xC3HL5TsOLj3ZsWQ2"/>
+</div>
+<h3 class="font-label-md text-label-md text-text-main mb-xs">妈妈</h3>
+<div class="bg-secondary-container/50 px-2 py-0.5 rounded-full">
+<span class="font-caption text-caption text-secondary">超级妈妈</span>
+</div>
+</div>
+<!-- Dad -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex flex-col items-center text-center ambient-shadow-interactive cursor-pointer hover:-translate-y-1 transition-transform">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-sm border-2 border-tertiary-fixed">
+<img class="w-full h-full object-cover" data-alt="A portrait of a friendly young man with a warm smile, wearing a light blue casual button-down shirt. The background is a soft, blurred pale blue, fitting the approachable and clear nursery aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFOo4DtYVBe7neneKpa-chyTWsMDK7n33qzvuPw-EctxQ69cOOXyG8CZu1m8IXLmQ5we8S-mFWDdjIRUU9vd1q5MSapBDoSmfmtXU9RvwVpEKzjKg33WyX3354aWiw83iclVWNFHULxQrpWH7mzq1ZaKmKKLPsDwiJd17S14i16QbrVneH6c4yEhunxautHd82MWDia-4llRUHIAQW4VxvP7byRFpPNTq47HIlL6KYs9JaCAqOv5he"/>
+</div>
+<h3 class="font-label-md text-label-md text-text-main mb-xs">爸爸</h3>
+<div class="bg-tertiary-fixed/50 px-2 py-0.5 rounded-full">
+<span class="font-caption text-caption text-tertiary">摄影师</span>
+</div>
+</div>
+<!-- Add Member -->
+<div class="bg-surface-container-low rounded-2xl p-md flex flex-col items-center justify-center text-center border-2 border-dashed border-warm-border cursor-pointer hover:bg-surface-container transition-colors">
+<div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-sm text-outline">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</div>
+<span class="font-caption text-caption text-text-muted">邀请家人</span>
+</div>
+</div>
+</section>
+<!-- Settings List -->
+<section class="bg-surface-container-lowest rounded-3xl overflow-hidden ambient-shadow">
+<ul class="divide-y divide-warm-border/50">
+<li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="badge">badge</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-text-main">宝宝档案</h3>
+<p class="font-caption text-caption text-text-muted">基本信息、出生记录</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</li>
+<li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="vaccines">vaccines</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-text-main">疫苗计划</h3>
+<p class="font-caption text-caption text-text-muted">下一次接种：下周二</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</li>
+<li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<div>
+<h3 class="font-body-lg text-body-lg text-text-main">亲友团</h3>
+<p class="font-caption text-caption text-text-muted">管理权限与分享设置</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</li>
+</ul>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl shadow-[0_-4px_20px_rgba(255,249,229,0.1)] bg-surface dark:bg-surface-container-low md:hidden">
+<div class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 group">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="font-label-md text-label-md">首页</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 group">
+<span class="material-symbols-outlined mb-1" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">成长时光</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 group">
+<span class="material-symbols-outlined mb-1" data-icon="photo_library">photo_library</span>
+<span class="font-label-md text-label-md">宝宝相册</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 group">
+<span class="material-symbols-outlined mb-1" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-md text-label-md">亲子日记</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 group">
+<span class="material-symbols-outlined mb-1" data-icon="person" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-md text-label-md">我的</span>
+</button>
+</div>
+</nav>
+</body></html>

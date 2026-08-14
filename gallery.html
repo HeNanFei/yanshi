@@ -1,637 +1,353 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>精彩相册 - 小宝贝成长记</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>宝宝相册 - 洵洵成长记</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#625f4f", "secondary": "#785656", "tertiary": "#46645f",
+                        "background": "#faf9f8", "surface": "#faf9f8",
+                        "surface-container-low": "#f4f3f2", "surface-container": "#eeeeed",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#fff9e5", "secondary-container": "#fdcfcf",
+                        "tertiary-container": "#e3fff9",
+                        "primary-fixed": "#e8e2cf", "secondary-fixed": "#ffdad9",
+                        "tertiary-fixed": "#c8e9e2",
+                        "on-primary": "#ffffff", "on-secondary": "#ffffff", "on-tertiary": "#ffffff",
+                        "on-primary-container": "#767262", "on-secondary-container": "#795657",
+                        "on-tertiary-container": "#5a7873",
+                        "on-surface": "#1a1c1c", "on-surface-variant": "#49473f",
+                        "text-main": "#5C5346", "text-muted": "#A39788",
+                        "sky-blue": "#D1E9F6", "warm-border": "#F2E8D5",
+                        "outline": "#7a776e", "outline-variant": "#cbc6bb",
+                        "error": "#ba1a1a",
+                    },
+                    spacing: {
+                        "gutter-mobile": "20px", "container-max": "800px",
+                        "xl": "32px", "lg": "24px", "md": "16px", "sm": "12px", "xs": "8px"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "PingFang SC", "Microsoft YaHei", "sans-serif"],
+                        "body": ["Be Vietnam Pro", "PingFang SC", "Microsoft YaHei", "sans-serif"],
+                    },
+                    fontSize: {
+                        "hero": ["26px", { lineHeight: "32px", fontWeight: "700" }],
+                        "hl": ["22px", { lineHeight: "28px", fontWeight: "700" }],
+                        "hm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "bl": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "bm": ["14px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "lm": ["13px", { lineHeight: "16px", fontWeight: "600" }],
+                        "cap": ["11px", { lineHeight: "14px", fontWeight: "500" }],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* ===== 筛选标签 ===== */
-        .filter-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-            padding: 0 20px;
-        }
-
-        .filter-tab {
-            padding: 10px 24px;
-            background: white;
-            border: 2px solid transparent;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 15px;
-            color: var(--text-gray);
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow);
-        }
-
-        .filter-tab:hover {
-            border-color: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .filter-tab.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* ===== 相册瀑布流 ===== */
-        .gallery-grid {
-            columns: 3;
-            column-gap: 20px;
-            padding: 0 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            position: relative;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .gallery-photo {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gallery-photo::before {
-            content: '';
-            display: block;
-            padding-top: 100%;
-        }
-
-        .gallery-photo .emoji {
-            position: absolute;
-            font-size: 70px;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-photo .emoji {
-            transform: scale(1.1);
-        }
-
-        .gallery-photo.tall::before {
-            padding-top: 130%;
-        }
-
-        .gallery-photo.wide::before {
-            padding-top: 70%;
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        .gallery-overlay h4 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .gallery-overlay .date {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        /* 不同背景色 */
-        .bg-1 { background: linear-gradient(135deg, #A8D8F0, #6BB9E8); }
-        .bg-2 { background: linear-gradient(135deg, #B8E6D0, #8FD6B4); }
-        .bg-3 { background: linear-gradient(135deg, #FFE4B5, #FFB366); }
-        .bg-4 { background: linear-gradient(135deg, #FFC8D0, #FFB6C1); }
-        .bg-5 { background: linear-gradient(135deg, #D4C5F0, #B8A8E8); }
-        .bg-6 { background: linear-gradient(135deg, #F0E6D4, #E8D4B8); }
-
-        /* ===== 相册分类 ===== */
-        .album-section {
-            margin-bottom: 60px;
-        }
-
-        .album-title {
-            font-size: 24px;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            padding-left: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .album-title .icon {
-            font-size: 28px;
-        }
-
-        .album-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 0 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .album-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .album-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .album-cover {
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            position: relative;
-        }
-
-        .album-cover .count {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-
-        .album-info {
-            padding: 20px;
-        }
-
-        .album-info h4 {
-            font-size: 18px;
-            color: var(--text-dark);
-            margin-bottom: 5px;
-        }
-
-        .album-info p {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        /* ===== 灯箱 ===== */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
-
-        .lightbox.active {
-            display: flex;
-        }
-
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-        }
-
-        .lightbox-image {
-            width: 400px;
-            height: 400px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 150px;
-            margin: 0 auto 20px;
-        }
-
-        .lightbox-title {
-            font-size: 24px;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .lightbox-desc {
-            color: var(--text-gray);
-            font-size: 15px;
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 30px;
-            cursor: pointer;
-            color: var(--text-gray);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .lightbox-close:hover {
-            background: #f0f0f0;
-            color: var(--text-dark);
-        }
-
-        @media (max-width: 768px) {
-            .gallery-grid {
-                columns: 2;
-            }
-
-            .album-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .lightbox-image {
-                width: 280px;
-                height: 280px;
-                font-size: 100px;
-            }
-        }
+        body { background-color: #faf9f8; }
+        .shadow-cozy { box-shadow: 0 8px 24px rgba(98, 95, 79, 0.08); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { min-height: max(884px, 100dvh); }
     </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">👶</span>
-                <span>小宝贝成长记</span>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="growth.html">成长时光</a></li>
-                <li><a href="gallery.html" class="active">精彩相册</a></li>
-                <li><a href="milestones.html">成长里程碑</a></li>
-                <li><a href="diary.html">亲子日记</a></li>
-                <li><a href="about.html">关于</a></li>
-            </ul>
+<body class="bg-background text-on-surface font-body-bm min-h-screen pb-24">
+
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-background flex items-center justify-between px-gutter-mobile py-md">
+    <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden shadow-cozy shrink-0">
+            <img class="w-full h-full object-cover" src="images/微信图片_20260626085611_1416_24.jpg" alt="宝宝头像">
         </div>
-    </nav>
+        <h1 class="font-display text-hero text-primary">洵洵成长记</h1>
+    </div>
+    <button class="w-10 h-10 flex items-center justify-center rounded-full text-primary hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+        <span class="material-symbols-outlined text-[22px]">notifications</span>
+    </button>
+</header>
 
-    <div class="page-container">
-        <!-- 页头 -->
-        <div class="page-header">
-            <h1>🖼️ 精彩相册</h1>
-            <p>每一张照片都是独一无二的美好回忆，记录着宝贝最可爱的瞬间</p>
+<main class="px-gutter-mobile pt-2 max-w-container-max mx-auto">
+    <!-- Page Title & Search -->
+    <div class="mb-6">
+        <h2 class="font-display text-hl text-text-main mb-4">宝宝相册</h2>
+        <div class="relative w-full">
+            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+            <input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 font-body-bm text-text-main placeholder:text-text-muted focus:ring-2 focus:ring-primary-container focus:bg-surface shadow-[inset_0_2px_8px_rgba(98,95,79,0.05)] transition-all"
+                   placeholder="搜索回忆 (例如: 生日, 第一次走路)" type="text" id="searchInput" oninput="filterPhotos()">
         </div>
+    </div>
 
-        <!-- 相册分类 -->
-        <section class="album-section">
-            <h3 class="album-title"><span class="icon">📁</span> 相册分类</h3>
-            <div class="album-grid">
-                <div class="album-card" onclick="filterGallery('all')">
-                    <div class="album-cover bg-1">
-                        👶
-                        <span class="count">36 张</span>
-                    </div>
-                    <div class="album-info">
-                        <h4>全部照片</h4>
-                        <p>宝贝的所有精彩瞬间</p>
-                    </div>
-                </div>
-                <div class="album-card" onclick="filterGallery('daily')">
-                    <div class="album-cover bg-2">
-                        ☀️
-                        <span class="count">12 张</span>
-                    </div>
-                    <div class="album-info">
-                        <h4>日常生活</h4>
-                        <p>平凡日子里的小美好</p>
-                    </div>
-                </div>
-                <div class="album-card" onclick="filterGallery('milestone')">
-                    <div class="album-cover bg-3">
-                        🏆
-                        <span class="count">8 张</span>
-                    </div>
-                    <div class="album-info">
-                        <h4>重要时刻</h4>
-                        <p>值得纪念的里程碑</p>
-                    </div>
-                </div>
-                <div class="album-card" onclick="filterGallery('travel')">
-                    <div class="album-cover bg-4">
-                        🌴
-                        <span class="count">6 张</span>
-                    </div>
-                    <div class="album-info">
-                        <h4>外出游玩</h4>
-                        <p>探索世界的小脚步</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Filter Chips -->
+    <div class="flex overflow-x-auto no-scrollbar gap-3 mb-6 pb-2">
+        <button class="shrink-0 bg-tertiary-fixed text-on-tertiary-fixed px-5 py-2 rounded-full font-body-lm text-lm shadow-sm active:scale-95 transition-transform chip active" data-cat="all" onclick="switchCat(this, 'all')">推荐</button>
+        <button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-body-lm text-lm active:scale-95 transition-transform chip" data-cat="daily" onclick="switchCat(this, 'daily')">日常</button>
+        <button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-body-lm text-lm active:scale-95 transition-transform chip" data-cat="milestone" onclick="switchCat(this, 'milestone')">里程碑</button>
+        <button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-body-lm text-lm active:scale-95 transition-transform chip" data-cat="sleep" onclick="switchCat(this, 'sleep')">睡颜</button>
+        <button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-body-lm text-lm active:scale-95 transition-transform chip" data-cat="travel" onclick="switchCat(this, 'travel')">出游</button>
+        <button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-body-lm text-lm active:scale-95 transition-transform chip" data-cat="family" onclick="switchCat(this, 'family')">全家福</button>
+    </div>
 
-        <!-- 筛选标签 -->
-        <div class="filter-tabs">
-            <div class="filter-tab active" data-filter="all" onclick="filterGallery('all')">全部</div>
-            <div class="filter-tab" data-filter="daily" onclick="filterGallery('daily')">日常生活</div>
-            <div class="filter-tab" data-filter="milestone" onclick="filterGallery('milestone')">重要时刻</div>
-            <div class="filter-tab" data-filter="travel" onclick="filterGallery('travel')">外出游玩</div>
-            <div class="filter-tab" data-filter="family" onclick="filterGallery('family')">全家福</div>
-            <div class="filter-tab" data-filter="sleep" onclick="filterGallery('sleep')">睡颜萌照</div>
+    <!-- Masonry Grid -->
+    <div class="columns-2 gap-4 space-y-4" id="photoGrid">
+        <!-- 动态渲染 -->
+    </div>
+
+    <div class="h-8"></div>
+</main>
+
+<!-- Photo Detail Sheet -->
+<div id="detailMask" class="fixed inset-0 z-50 bg-background overflow-y-auto hidden">
+    <div class="sticky top-0 z-10 flex items-center justify-between px-gutter-mobile py-md bg-background/90 backdrop-blur-md">
+        <button onclick="closeDetail()" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-text-main active:scale-95 transition-transform">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+        <div class="flex items-center gap-2">
+            <button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-text-main active:scale-95 transition-transform" onclick="toggleLikeDetail()">
+                <span class="material-symbols-outlined" id="detailLikeIcon">favorite</span>
+            </button>
+            <button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-text-main active:scale-95 transition-transform">
+                <span class="material-symbols-outlined">share</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="px-gutter-mobile">
+        <div class="rounded-[24px] overflow-hidden shadow-cozy mb-6">
+            <img id="detailImg" class="w-full h-auto object-cover" src="" alt="">
         </div>
 
-        <!-- 相册瀑布流 -->
-        <div class="gallery-grid" id="galleryGrid">
-            <!-- 重要时刻 -->
-            <div class="gallery-item" data-category="milestone" onclick="openLightbox('🎂', '一岁生日', '2026年8月10日，宝贝的第一个生日，抓周抓到了书和笔～')">
-                <div class="gallery-photo tall bg-1">
-                    <span class="emoji">🎂</span>
+        <div class="space-y-4 mb-24">
+            <div>
+                <h3 class="font-display text-hm text-text-main mb-2" id="detailTitle">照片标题</h3>
+                <p class="font-body-bm text-on-surface-variant" id="detailDesc">照片描述</p>
+            </div>
+
+            <div class="flex items-center gap-2 flex-wrap">
+                <span class="bg-tertiary-fixed/50 text-tertiary px-3 py-1 rounded-full font-body-cap text-cap" id="detailTag">标签</span>
+                <span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-body-cap text-cap" id="detailDate">日期</span>
+            </div>
+
+            <div class="flex items-center gap-3 py-4 border-t border-warm-border border-b">
+                <div class="w-10 h-10 rounded-full overflow-hidden bg-secondary-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-secondary">person</span>
                 </div>
-                <div class="gallery-overlay">
-                    <h4>一岁生日</h4>
-                    <span class="date">2026.08.10</span>
+                <div class="flex-1">
+                    <div class="font-body-lm text-lm text-text-main">洵洵妈妈</div>
+                    <div class="font-body-cap text-cap text-text-muted">记录成长的每一天</div>
+                </div>
+                <button class="px-4 py-2 bg-secondary text-on-secondary rounded-full font-body-lm text-lm active:scale-95 transition-transform">关注</button>
+            </div>
+
+            <div class="flex items-center justify-around py-2">
+                <div class="text-center">
+                    <div class="font-display text-hm text-tertiary" id="detailLikes">236</div>
+                    <div class="font-body-cap text-cap text-text-muted">点赞</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-display text-hm text-secondary">28</div>
+                    <div class="font-body-cap text-cap text-text-muted">评论</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-display text-hm text-primary">128</div>
+                    <div class="font-body-cap text-cap text-text-muted">收藏</div>
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="daily" onclick="openLightbox('😊', '灿烂的笑容', '今天宝贝心情特别好，对着镜头笑个不停～')">
-                <div class="gallery-photo bg-2">
-                    <span class="emoji">😊</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>灿烂的笑容</h4>
-                    <span class="date">2026.08.05</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="travel" onclick="openLightbox('🦁', '动物园之行', '第一次去动物园，看到狮子的时候眼睛都直了！')">
-                <div class="gallery-photo wide bg-3">
-                    <span class="emoji">🦁</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>动物园之行</h4>
-                    <span class="date">2026.08.01</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="sleep" onclick="openLightbox('😴', '天使睡颜', '睡着的时候像个小天使，安静又美好～')">
-                <div class="gallery-photo tall bg-4">
-                    <span class="emoji">😴</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>天使睡颜</h4>
-                    <span class="date">2026.07.28</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="milestone" onclick="openLightbox('🚶', '迈出第一步', '扶着沙发终于敢挪步了，小小探险家出发！')">
-                <div class="gallery-photo bg-5">
-                    <span class="emoji">🚶</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>迈出第一步</h4>
-                    <span class="date">2026.07.20</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="family" onclick="openLightbox('👨‍👩‍👦', '全家福', '第一次拍正式的全家福，宝贝还不太配合呢～')">
-                <div class="gallery-photo wide bg-6">
-                    <span class="emoji">👨‍👩‍👦</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>全家福</h4>
-                    <span class="date">2026.07.15</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="daily" onclick="openLightbox('🍼', '喝neinei', '抱着奶瓶自己喝奶的样子太萌了！')">
-                <div class="gallery-photo bg-1">
-                    <span class="emoji">🍼</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>喝neinei</h4>
-                    <span class="date">2026.07.10</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="travel" onclick="openLightbox('🌊', '海边度假', '第一次看到大海，小脚丫踩在沙滩上好开心～')">
-                <div class="gallery-photo tall bg-2">
-                    <span class="emoji">🌊</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>海边度假</h4>
-                    <span class="date">2026.07.05</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="milestone" onclick="openLightbox('🦷', '第一颗小牙', '下门牙萌出啦！白白的一小点，摸上去硬硬的～')">
-                <div class="gallery-photo bg-3">
-                    <span class="emoji">🦷</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>第一颗小牙</h4>
-                    <span class="date">2026.06.28</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="daily" onclick="openLightbox('🧸', '和小熊玩耍', '最喜欢的玩具就是这只小熊，走到哪带到哪～')">
-                <div class="gallery-photo wide bg-4">
-                    <span class="emoji">🧸</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>和小熊玩耍</h4>
-                    <span class="date">2026.06.20</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="sleep" onclick="openLightbox('💤', '午睡时光', '吃完奶就睡着了，小嘴巴还在动呢～')">
-                <div class="gallery-photo bg-5">
-                    <span class="emoji">💤</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>午睡时光</h4>
-                    <span class="date">2026.06.15</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="family" onclick="openLightbox('👴👵', '爷爷奶奶的宝贝', '爷爷奶奶来看宝贝，抱在手里舍不得放下～')">
-                <div class="gallery-photo tall bg-6">
-                    <span class="emoji">👴</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>爷爷奶奶的宝贝</h4>
-                    <span class="date">2026.06.01</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="milestone" onclick="openLightbox('🎯', '翻身成功', '第一次成功翻身，小脑袋抬得高高的！')">
-                <div class="gallery-photo bg-1">
-                    <span class="emoji">🎯</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>翻身成功</h4>
-                    <span class="date">2025.12.15</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="daily" onclick="openLightbox('🥣', '第一次吃辅食', '米糊的味道好像还不错，一口接一口～')">
-                <div class="gallery-photo wide bg-2">
-                    <span class="emoji">🥣</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>第一次吃辅食</h4>
-                    <span class="date">2026.02.20</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="travel" onclick="openLightbox('🌳', '公园散步', '春天来了，带宝贝去公园感受大自然～')">
-                <div class="gallery-photo bg-3">
-                    <span class="emoji">🌳</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>公园散步</h4>
-                    <span class="date">2026.03.10</span>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-category="milestone" onclick="openLightbox('👶', '出生纪念', '2025年8月10日，你来到了我们身边～')">
-                <div class="gallery-photo tall bg-4">
-                    <span class="emoji">👶</span>
-                </div>
-                <div class="gallery-overlay">
-                    <h4>出生纪念</h4>
-                    <span class="date">2025.08.10</span>
+            <!-- Comments -->
+            <div class="pt-4">
+                <h4 class="font-display text-hm text-text-main mb-4">精彩评论</h4>
+                <div class="space-y-4">
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-sky-blue/40 flex-shrink-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-tertiary text-[18px]">face_3</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-body-lm text-lm text-tertiary">小汤圆妈妈</div>
+                            <div class="font-body-bm text-bm text-text-main mt-1">太可爱啦！小眼神好有戏～祝宝宝健康成长！😘</div>
+                            <div class="flex gap-4 mt-2 font-body-cap text-cap text-text-muted">
+                                <span>2小时前</span>
+                                <span>👍 36</span>
+                                <span>回复</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-full bg-primary-container flex-shrink-0 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary text-[18px]">face</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="font-body-lm text-lm text-on-primary-container">奶爸小周</div>
+                            <div class="font-body-bm text-bm text-text-main mt-1">跟我家宝宝好像啊，都是小肉脸哈哈哈</div>
+                            <div class="flex gap-4 mt-2 font-body-cap text-cap text-text-muted">
+                                <span>5小时前</span>
+                                <span>👍 12</span>
+                                <span>回复</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 灯箱 -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
-        <div class="lightbox-content" onclick="event.stopPropagation()">
-            <div class="lightbox-close" onclick="closeLightbox()">×</div>
-            <div class="lightbox-image bg-1" id="lightboxImage">😊</div>
-            <h3 class="lightbox-title" id="lightboxTitle">照片标题</h3>
-            <p class="lightbox-desc" id="lightboxDesc">照片描述</p>
-        </div>
+    <!-- Comment Input -->
+    <div class="fixed bottom-0 left-0 right-0 bg-surface px-gutter-mobile py-3 border-t border-warm-border flex items-center gap-3 z-50">
+        <input class="flex-1 bg-surface-container rounded-full px-4 py-2.5 font-body-bm text-bm text-text-main placeholder:text-text-muted border-none outline-none" placeholder="说点什么...">
+        <button class="px-5 py-2.5 bg-tertiary text-on-tertiary rounded-full font-body-lm text-lm active:scale-95 transition-transform">发送</button>
     </div>
+</div>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div>
-                <h3>👶 小宝贝成长记</h3>
-                <p>记录成长，珍藏感动<br>用爱陪伴宝贝每一天</p>
+<!-- FAB -->
+<button class="fixed bottom-24 right-gutter-mobile w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-[0_8px_16px_rgba(98,95,79,0.3)] hover:scale-105 active:scale-95 transition-all z-40">
+    <span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 w-full z-30 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_20px_rgba(98,95,79,0.05)] bg-surface md:hidden">
+    <a href="index.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">home</span>
+        <span class="font-body-lm text-lm">首页</span>
+    </a>
+    <a href="growth.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">monitoring</span>
+        <span class="font-body-lm text-lm">成长时光</span>
+    </a>
+    <a href="gallery.html" class="flex flex-col items-center justify-center bg-tertiary-fixed text-on-tertiary-fixed rounded-full px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1 icon-filled">photo_library</span>
+        <span class="font-body-lm text-lm">宝宝相册</span>
+    </a>
+    <a href="diary.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">auto_stories</span>
+        <span class="font-body-lm text-lm">亲子日记</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">person</span>
+        <span class="font-body-lm text-lm">我的</span>
+    </a>
+</nav>
+
+<script>
+    const photos = [
+        { id: 1, src: 'images/微信图片_20260717110048_2875_24.jpg', title: '夏日清凉的洵洵', desc: '今天天气好热，给洵洵换上了小吊带，凉丝丝的～小脚丫子还在不停蹬呢！', cat: 'daily', tag: '萌宝日常', likes: 236, date: '2026.08.10', featured: true },
+        { id: 2, src: 'images/微信图片_20260626085611_1416_24.jpg', title: '小眼神超有戏', desc: '抓拍的瞬间，这小表情也太丰富了吧！', cat: 'daily', tag: '可爱', likes: 189, date: '2026.07.15' },
+        { id: 3, src: 'images/微信图片_20260608165631_8_24.jpg', title: '第一次自己坐起来', desc: '七个月的小成就！虽然还有点摇摇晃晃，但努力的样子超可爱～', cat: 'milestone', tag: '里程碑', likes: 456, date: '2026.05.02', featured: true },
+        { id: 4, src: 'images/微信图片_20260512105350_45647_88.jpg', title: '专注的小模样', desc: '盯着新玩具看了好久，小眉毛都皱起来了哈哈哈', cat: 'daily', tag: '萌宝日常', likes: 178, date: '2026.04.15' },
+        { id: 5, src: 'images/微信图片_20260512105349_45646_88.jpg', title: '小手手真好吃', desc: '吃手手的快乐，宝宝最懂～', cat: 'daily', tag: '可爱', likes: 312, date: '2026.04.15' },
+        { id: 6, src: 'images/微信图片_20260204093931_36978_88.jpg', title: '新年穿新衣', desc: '新年穿了小唐装，红包拿到手软～祝大家新年快乐！', cat: 'milestone', tag: '第一个新年', likes: 520, date: '2026.01.29', featured: true },
+        { id: 7, src: 'images/微信图片_20260113111252_33741_88.jpg', title: '冬日暖阳下', desc: '难得的好天气，带宝宝出来晒晒太阳补补钙～', cat: 'travel', tag: '户外', likes: 156, date: '2025.12.21' },
+        { id: 8, src: 'images/微信图片_20260113102733_33669_88.jpg', title: '爸爸妈妈爱你', desc: '一家三口的温馨时光，有你就是最幸福的事', cat: 'family', tag: '全家福', likes: 666, date: '2025.12.21', featured: true },
+        { id: 9, src: 'images/微信图片_20251224150952_30920_88.jpg', title: '圣诞小麋鹿', desc: '圣诞节快乐！我的小麋鹿太可爱啦🎄', cat: 'milestone', tag: '第一个圣诞', likes: 389, date: '2025.12.24' },
+        { id: 10, src: 'images/微信图片_20251215164649_29703_88.jpg', title: '天使睡颜', desc: '睡着的时候就是小天使，睫毛长长的～', cat: 'sleep', tag: '睡颜', likes: 445, date: '2025.12.10', featured: true },
+        { id: 11, src: 'images/微信图片_20251205081508_28594_88.jpg', title: '早安呀宝贝', desc: '每天早上醒来看到你的笑脸，一整天都是好心情！', cat: 'daily', tag: '早安', likes: 267, date: '2025.11.30' },
+        { id: 12, src: 'images/微信图片_20251126104241_27222_88.jpg', title: '第一次去公园', desc: '外面的世界好新奇，小眼睛都看不过来了～', cat: 'travel', tag: '外出', likes: 298, date: '2025.11.08' },
+        { id: 13, src: 'images/微信图片_20251114163900_25422_88.jpg', title: '小小探险家', desc: '什么都想摸一摸、尝一尝，家里每个角落都是你的探索乐园', cat: 'daily', tag: '探索', likes: 203, date: '2025.10.30' },
+        { id: 14, src: 'images/微信图片_20251109050321_598_691.jpg', title: '阳光下的笑脸', desc: '这笑容也太治愈了吧，心都化了～', cat: 'travel', tag: '阳光', likes: 378, date: '2025.10.25' },
+        { id: 15, src: 'images/微信图片_20251107234830_24493_88.jpg', title: '梦中的微笑', desc: '睡着睡着突然笑了，是梦到什么开心的事了呀？', cat: 'sleep', tag: '睡颜', likes: 412, date: '2025.10.20' },
+        { id: 16, src: 'images/微信图片_20251107234828_24492_88.jpg', title: '静谧时光', desc: '呼吸轻轻的，小胸脯一起一伏，太可爱了', cat: 'sleep', tag: '睡颜', likes: 367, date: '2025.10.20' },
+        { id: 17, src: 'images/微信图片_20251106103437_24045_88.jpg', title: '第一次对我笑', desc: '洵洵第一次社会性微笑！不是睡梦中的笑，是真正看着我笑了，眼泪都快出来了', cat: 'milestone', tag: '第一次微笑', likes: 888, date: '2025.11.12', featured: true },
+        { id: 18, src: 'images/微信图片_20251104151752_23613_88.jpg', title: '满月啦', desc: '我们洵洵满月啦！从今天起就是一个月的大宝宝了～', cat: 'milestone', tag: '满月', likes: 999, date: '2025.10.17' },
+        { id: 19, src: 'images/微信图片_20251029013752_21752_88.jpg', title: '皱巴巴的小老头', desc: '刚出生的时候皱巴巴的，现在看看变化好大呀', cat: 'daily', tag: '新生儿', likes: 521, date: '2025.09.25' },
+        { id: 20, src: 'images/微信图片_20251028094334_21479_88.jpg', title: '你好，世界', desc: '来到这个世界的第一天，请多指教呀', cat: 'milestone', tag: '出生', likes: 1314, date: '2025.09.17', featured: true },
+        { id: 21, src: 'images/微信图片_20251013173313_386_99.jpg', title: '全家福', desc: '我们的小家，因为你的到来变得更加完整', cat: 'family', tag: '全家福', likes: 888, date: '2025.09.30' },
+        { id: 22, src: 'images/微信图片_20251011091729_17657_88.jpg', title: '小小的手掌', desc: '你的小手紧紧握着我的手指，那一刻觉得什么都值了', cat: 'daily', tag: '感动', likes: 666, date: '2025.09.17' },
+    ];
+
+    let currentCat = 'all';
+    let currentDetailId = null;
+    let likedPhotos = new Set();
+
+    function render(list) {
+        const grid = document.getElementById('photoGrid');
+        grid.innerHTML = list.map(p => `
+            <div class="break-inside-avoid relative rounded-[24px] overflow-hidden shadow-cozy bg-surface group cursor-pointer" onclick="openDetail(${p.id})">
+                <img class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" src="${p.src}" alt="${p.title}" loading="lazy">
+                ${p.featured ? `<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur-sm rounded-full px-3 py-1 font-body-cap text-cap text-tertiary flex items-center gap-1 shadow-sm">
+                    <span class="material-symbols-outlined text-[14px] icon-filled">star</span>精选
+                </div>` : ''}
+                <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/40 to-transparent">
+                    <p class="font-body-lm text-lm text-white">${p.date}</p>
+                </div>
             </div>
-            <div>
-                <h3>快速导航</h3>
-                <p><a href="index.html">首页</a></p>
-                <p><a href="growth.html">成长时光</a></p>
-                <p><a href="gallery.html">精彩相册</a></p>
-            </div>
-            <div>
-                <h3>更多内容</h3>
-                <p><a href="milestones.html">成长里程碑</a></p>
-                <p><a href="diary.html">亲子日记</a></p>
-                <p><a href="about.html">关于我们</a></p>
-            </div>
-            <div>
-                <h3>联系我们</h3>
-                <p>💌 baby@example.com</p>
-                <p>📱 关注微信公众号</p>
-                <p>💬 分享成长喜悦</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            © 2025 小宝贝成长记 · 用爱记录每一刻 · Made with 💙
-        </div>
-    </footer>
+        `).join('');
+    }
 
-    <script src="js/main.js"></script>
-    <script>
-        // 筛选相册
-        function filterGallery(category) {
-            const items = document.querySelectorAll('.gallery-item');
-            const tabs = document.querySelectorAll('.filter-tab');
-
-            tabs.forEach(tab => {
-                tab.classList.toggle('active', tab.dataset.filter === category);
-            });
-
-            items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        // 灯箱
-        function openLightbox(emoji, title, desc) {
-            const lightbox = document.getElementById('lightbox');
-            document.getElementById('lightboxImage').textContent = emoji;
-            document.getElementById('lightboxTitle').textContent = title;
-            document.getElementById('lightboxDesc').textContent = desc;
-            lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeLightbox(event) {
-            if (event && event.target !== event.currentTarget) return;
-            document.getElementById('lightbox').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // ESC 关闭灯箱
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeLightbox();
-            }
+    function switchCat(el, cat) {
+        document.querySelectorAll('.chip').forEach(c => {
+            c.classList.remove('bg-tertiary-fixed', 'text-on-tertiary-fixed', 'active');
+            c.classList.add('bg-surface-container', 'text-on-surface-variant');
         });
-    </script>
+        el.classList.remove('bg-surface-container', 'text-on-surface-variant');
+        el.classList.add('bg-tertiary-fixed', 'text-on-tertiary-fixed', 'active');
+        currentCat = cat;
+        filterPhotos();
+    }
+
+    function filterPhotos() {
+        const kw = document.getElementById('searchInput').value.trim().toLowerCase();
+        let list = currentCat === 'all' ? photos : photos.filter(p => p.cat === currentCat);
+        if (kw) {
+            list = list.filter(p => p.title.toLowerCase().includes(kw) || p.desc.toLowerCase().includes(kw) || p.tag.toLowerCase().includes(kw));
+        }
+        render(list);
+    }
+
+    function openDetail(id) {
+        const p = photos.find(x => x.id === id);
+        if (!p) return;
+        currentDetailId = id;
+        document.getElementById('detailImg').src = p.src;
+        document.getElementById('detailTitle').textContent = p.title;
+        document.getElementById('detailDesc').textContent = p.desc;
+        document.getElementById('detailTag').textContent = p.tag;
+        document.getElementById('detailDate').textContent = p.date;
+        document.getElementById('detailLikes').textContent = p.likes + (likedPhotos.has(id) ? 1 : 0);
+        const icon = document.getElementById('detailLikeIcon');
+        if (likedPhotos.has(id)) {
+            icon.classList.add('icon-filled', 'text-secondary');
+        } else {
+            icon.classList.remove('icon-filled', 'text-secondary');
+        }
+        document.getElementById('detailMask').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetail() {
+        document.getElementById('detailMask').classList.add('hidden');
+        document.body.style.overflow = '';
+        currentDetailId = null;
+        filterPhotos();
+    }
+
+    function toggleLikeDetail() {
+        if (!currentDetailId) return;
+        const p = photos.find(x => x.id === currentDetailId);
+        if (!p) return;
+        const liked = likedPhotos.has(currentDetailId);
+        if (liked) {
+            likedPhotos.delete(currentDetailId);
+        } else {
+            likedPhotos.add(currentDetailId);
+        }
+        document.getElementById('detailLikes').textContent = p.likes + (likedPhotos.has(currentDetailId) ? 1 : 0);
+        const icon = document.getElementById('detailLikeIcon');
+        if (likedPhotos.has(currentDetailId)) {
+            icon.classList.add('icon-filled', 'text-secondary');
+        } else {
+            icon.classList.remove('icon-filled', 'text-secondary');
+        }
+    }
+
+    render(photos);
+</script>
 </body>
 </html>

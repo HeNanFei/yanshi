@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>小宝贝成长记 - 亲子日记</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f1f0f0",
+                      "on-primary-fixed-variant": "#4a4739",
+                      "on-background": "#1a1c1c",
+                      "surface-container-highest": "#e3e2e1",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#fdcfcf",
+                      "primary": "#625f4f",
+                      "tertiary-fixed": "#c8e9e2",
+                      "surface-variant": "#e3e2e1",
+                      "inverse-primary": "#ccc6b4",
+                      "primary-fixed-dim": "#ccc6b4",
+                      "on-primary-fixed": "#1e1c10",
+                      "on-tertiary-fixed": "#01201c",
+                      "tertiary": "#46645f",
+                      "surface-dim": "#dadad9",
+                      "surface-bright": "#faf9f8",
+                      "tertiary-fixed-dim": "#adcdc7",
+                      "secondary-fixed": "#ffdad9",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#625f4f",
+                      "inverse-surface": "#2f3130",
+                      "sky-blue": "#D1E9F6",
+                      "outline-variant": "#cbc6bb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#2f4c47",
+                      "primary-fixed": "#e8e2cf",
+                      "warm-border": "#F2E8D5",
+                      "on-surface": "#1a1c1c",
+                      "on-secondary-fixed": "#2d1415",
+                      "surface-container": "#eeeeed",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e9e8e7",
+                      "text-muted": "#A39788",
+                      "on-tertiary": "#ffffff",
+                      "background": "#faf9f8",
+                      "surface": "#faf9f8",
+                      "text-main": "#5C5346",
+                      "primary-container": "#fff9e5",
+                      "secondary-fixed-dim": "#e8bcbc",
+                      "on-surface-variant": "#49473f",
+                      "secondary": "#785656",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#e3fff9",
+                      "on-secondary-fixed-variant": "#5e3e3f",
+                      "surface-container-low": "#f4f3f2",
+                      "on-primary-container": "#767262",
+                      "on-tertiary-container": "#5a7873",
+                      "on-secondary-container": "#795657",
+                      "on-error": "#ffffff",
+                      "outline": "#7a776e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-mobile": "20px",
+                      "container-max": "800px",
+                      "base": "4px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "sm": "12px",
+                      "xs": "8px"
+              },
+              "fontFamily": {
+                      "display-hero-mobile": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-md": [
+                              "Be Vietnam Pro"
+                      ],
+                      "display-hero": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Be Vietnam Pro"
+                      ],
+                      "body-md": [
+                              "Be Vietnam Pro"
+                      ],
+                      "caption": [
+                              "Be Vietnam Pro"
+                      ]
+              },
+              "fontSize": {
+                      "display-hero-mobile": [
+                              "26px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "13px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-hero": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "caption": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Ambient shadows for "Warm and Cozy" feel */
+        .ambient-shadow {
+            box-shadow: 0 8px 32px -4px rgba(98, 95, 79, 0.08);
+        }
+        .ambient-shadow-sm {
+            box-shadow: 0 4px 16px -2px rgba(98, 95, 79, 0.06);
+        }
+        /* Hide scrollbar for horizontal lists */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen relative pb-28 antialiased selection:bg-secondary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-background dark:bg-background flex items-center justify-between px-gutter-mobile py-md shadow-none">
+<button class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high hover:opacity-80 transition-opacity active:scale-95 duration-150 flex items-center justify-center">
+<img alt="Baby profile picture" class="w-full h-full object-cover" data-alt="A soft, warm, close-up portrait of a smiling young mother in a cozy, light-filled nursery. Gentle pastel lighting, high-quality, professional photography, exuding a nurturing and approachable mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp0KnNnrVMIUMr-anfuJPSnZDvD5DvS2RzEPEWNA4CDAVCJr2qKsD_-dPwW_RmWrC7wrwUY_cqCe-KAgAqeV8CFXGiLS9C0jq8dqf5F0xQHARADLa47WDq9P4E4wLynzYR9EUMTcCwb6tcFwenxiD9hvWu2UtAn-O_g6Ylu35qG82BVpmMbHB9kI_JpcNRVlAycJyk8AohWDR8_lcC3_MHDeXoTEFp-1MyL2u885MheTFWQCQv_8cE"/>
+</button>
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim">小宝贝成长记</h1>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<!-- Content Canvas -->
+<main class="w-full max-w-container-max mx-auto">
+<!-- Statistics Section -->
+<section class="px-gutter-mobile mt-2">
+<div class="bg-primary-container rounded-[20px] p-5 flex justify-between items-center ambient-shadow-sm">
+<div class="flex flex-col items-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary">28</span>
+<span class="font-caption text-caption text-on-primary-container mt-1">日记篇数</span>
+</div>
+<div class="w-px h-10 bg-warm-border"></div>
+<div class="flex flex-col items-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary">126</span>
+<span class="font-caption text-caption text-on-primary-container mt-1">亲子互动</span>
+</div>
+<div class="w-px h-10 bg-warm-border"></div>
+<div class="flex flex-col items-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary">365</span>
+<span class="font-caption text-caption text-on-primary-container mt-1">陪伴天数</span>
+</div>
+</div>
+</section>
+<!-- Filter Tabs -->
+<section class="px-gutter-mobile mt-6 flex gap-3 overflow-x-auto no-scrollbar py-1">
+<button class="px-5 py-2 rounded-full bg-tertiary text-on-tertiary font-label-md text-label-md flex-shrink-0 active:scale-95 transition-transform duration-200 shadow-sm">
+                全部日记
+            </button>
+<button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex-shrink-0 hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+                妈妈写的
+            </button>
+<button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md flex-shrink-0 hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+                爸爸写的
+            </button>
+</section>
+<!-- Timeline List -->
+<section class="px-gutter-mobile mt-6 flex flex-col gap-5">
+<!-- Entry Card 1 -->
+<article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+<!-- Header -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<img alt="Author avatar" class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="A soft, warm, close-up portrait of a smiling young mother in a cozy, light-filled nursery. Gentle pastel lighting, high-quality, professional photography, exuding a nurturing and approachable mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2ec1_XDeit0sttqqY-VQzRq46Bs8slH5G96mtgEIzDtrkMYbXUhoDwo30COe_4lh3wPrdRhyF0WhxuTMwXChZ1aqY7l04OUV9EuU5Nm731EuMmy9N2rFLZ4lroHp4awk_ziizYIO0sC0eGEY9aReMbkhPpPcJY6ACYoLpjvOr2gJfYcrWW1Uh5PuJgMmYmupBJ_Hu3VmaEHjb8Y_XPkPLozXLlfCu3H_dzlGXzhsejRMqP0Kcck2z"/>
+<div>
+<p class="font-label-md text-label-md text-text-main">妈妈</p>
+<p class="font-caption text-caption text-text-muted mt-0.5">今天 14:30</p>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">sentiment_satisfied</span>
+</div>
+</div>
+<!-- Content -->
+<h2 class="font-headline-md text-headline-md text-primary mb-2">第一次学会翻身！</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">
+                    今天下午阳光特别好，小宝躺在爬行垫上玩耍。突然间，他用力一蹬腿，竟然自己从仰卧翻成了趴着！真的是太惊喜了，虽然过程有点笨拙，但这是他成长的一大步。
+                </p>
+<!-- Image Preview -->
+<div class="w-full h-32 rounded-[16px] overflow-hidden">
+<img alt="Diary photo" class="w-full h-full object-cover" data-alt="A close-up shot of baby hands playfully interacting with a softly glowing, textured pastel toy on a pristine white crawling mat. The scene is brightly lit with natural sunlight streaming through a window, casting gentle, ambient shadows. High resolution, minimal style, evoking a sense of warm memory, safety, and pure joy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH9znTR2waGjvoa09PwBeCmvl8DEnJjz1-txBfyi4LWWIAEmWsxzsKoDYnUv_x4b4hu5eC4D1_SRp2uw4yljnGJLBzqu2TX_et_VuAXgQeQB8j0gOMuSsTTwdILJbxaEOmujYiZCNd6cABxzL7KBSJylD1DTGq-dwsuXo-XKQAkqK8ILw3DVV2VfAuwy5WyrR4j0I7O0Y21mqzL_TepWtctyW6OeSEqRf1w-lqlmMp__nulaTEpSVd"/>
+</div>
+</article>
+<!-- Entry Card 2 -->
+<article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+<!-- Header -->
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<img alt="Author avatar" class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="A warm, approachable close-up portrait of a young father in a comfortable home setting. Soft natural lighting, gentle depth of field, conveying a sense of calm and loving parenting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACNJNL-X5S8zBoUAJtUCAWOcY76N3dFuNBV3o5RUrR6o1i5nHkbpt-yfuKeCsqq9FDZTpjLWtY4o_T1vYr0x6ogTAMjXEjglBjm3xVRshXVyFy2-crV2_e8Z-idwoPc_ZboErRQhKoiy-kkrDiP3-IsvQbchpnNZxVDdM8UgHLmF7t0J1FjRLgcqr33I-Z7KZGvkNfrgxFfzC_JGSFnJoBF7uS4j0t9duloYElNwFuOOWXH6b7HRG8"/>
+<div>
+<p class="font-label-md text-label-md text-text-main">爸爸</p>
+<p class="font-caption text-caption text-text-muted mt-0.5">昨天 09:15</p>
+</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-sky-blue/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">sunny</span>
+</div>
+</div>
+<!-- Content -->
+<h2 class="font-headline-md text-headline-md text-primary mb-2">周末的早晨阳光明媚</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    趁着周末天气好，带宝宝去公园散步。小家伙对路边的小花小草充满了好奇心，咿咿呀呀地说个不停。记录下这平凡又温馨的瞬间，希望能陪你慢慢长大。
+                </p>
+</article>
+</section>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed right-gutter-mobile bottom-[100px] w-14 h-14 bg-secondary text-on-secondary rounded-[20px] ambient-shadow flex items-center justify-center z-40 active:scale-90 transition-transform duration-200 hover:opacity-90">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">edit</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_20px_rgba(255,249,229,0.1)] bg-surface dark:bg-surface-container-low rounded-t-xl">
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 duration-200 rounded-full group">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform" data-icon="home">home</span>
+<span class="font-label-md text-label-md">首页</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 duration-200 rounded-full group">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">成长时光</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 duration-200 rounded-full group">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform" data-icon="photo_library">photo_library</span>
+<span class="font-label-md text-label-md">宝宝相册</span>
+</button>
+<!-- Active Tab: Diary -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-[16px] px-5 py-2 active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined text-2xl mb-1" data-icon="auto_stories" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-label-md text-label-md">亲子日记</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 duration-200 rounded-full group">
+<span class="material-symbols-outlined text-2xl mb-1 group-hover:scale-110 transition-transform" data-icon="person">person</span>
+<span class="font-label-md text-label-md">我的</span>
+</button>
+</nav>
+</body></html>

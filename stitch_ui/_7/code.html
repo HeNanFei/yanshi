@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>小宝贝成长记 - 成长里程碑</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f1f0f0",
+                    "on-primary-fixed-variant": "#4a4739",
+                    "on-background": "#1a1c1c",
+                    "surface-container-highest": "#e3e2e1",
+                    "error-container": "#ffdad6",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#fdcfcf",
+                    "primary": "#625f4f",
+                    "tertiary-fixed": "#c8e9e2",
+                    "surface-variant": "#e3e2e1",
+                    "inverse-primary": "#ccc6b4",
+                    "primary-fixed-dim": "#ccc6b4",
+                    "on-primary-fixed": "#1e1c10",
+                    "on-tertiary-fixed": "#01201c",
+                    "tertiary": "#46645f",
+                    "surface-dim": "#dadad9",
+                    "surface-bright": "#faf9f8",
+                    "tertiary-fixed-dim": "#adcdc7",
+                    "secondary-fixed": "#ffdad9",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#625f4f",
+                    "inverse-surface": "#2f3130",
+                    "sky-blue": "#D1E9F6",
+                    "outline-variant": "#cbc6bb",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed-variant": "#2f4c47",
+                    "primary-fixed": "#e8e2cf",
+                    "warm-border": "#F2E8D5",
+                    "on-surface": "#1a1c1c",
+                    "on-secondary-fixed": "#2d1415",
+                    "surface-container": "#eeeeed",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e9e8e7",
+                    "text-muted": "#A39788",
+                    "on-tertiary": "#ffffff",
+                    "background": "#faf9f8",
+                    "surface": "#faf9f8",
+                    "text-main": "#5C5346",
+                    "primary-container": "#fff9e5",
+                    "secondary-fixed-dim": "#e8bcbc",
+                    "on-surface-variant": "#49473f",
+                    "secondary": "#785656",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#e3fff9",
+                    "on-secondary-fixed-variant": "#5e3e3f",
+                    "surface-container-low": "#f4f3f2",
+                    "on-primary-container": "#767262",
+                    "on-tertiary-container": "#5a7873",
+                    "on-secondary-container": "#795657",
+                    "on-error": "#ffffff",
+                    "outline": "#7a776e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-mobile": "20px",
+                    "container-max": "800px",
+                    "base": "4px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "sm": "12px",
+                    "xs": "8px"
+            },
+            "fontFamily": {
+                    "display-hero-mobile": ["Plus Jakarta Sans"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "display-hero": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "headline-lg": ["Plus Jakarta Sans"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "caption": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "display-hero-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "display-hero": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+            },
+            boxShadow: {
+              'ambient': '0 8px 32px rgba(98, 95, 79, 0.05)',
+              'interactive': '0 12px 40px rgba(98, 95, 79, 0.08)'
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Circular Progress Animation */
+        @keyframes progress {
+            from { stroke-dashoffset: 283; }
+            to { stroke-dashoffset: 93; /* 67% of 283 (circumference) */ }
+        }
+        .progress-ring__circle {
+            transition: stroke-dashoffset 1s ease-in-out;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-dasharray: 283 283;
+            stroke-dashoffset: 283;
+            animation: progress 1.5s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background min-h-screen text-on-surface font-body-md md:font-body-lg pb-24 md:pb-0">
+<!-- TopAppBar (Mobile & Desktop) -->
+<header class="w-full top-0 sticky bg-background dark:bg-background z-40 flex items-center justify-between px-gutter-mobile py-md w-full shadow-ambient">
+<div class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-full object-cover border-2 border-warm-border" data-alt="A soft, high-quality, circular profile picture of an adorable, smiling baby with rosy cheeks, shot in gentle, natural window light with a shallow depth of field. The background is a soft, creamy blurred nursery environment, adhering to the warm macaron color palette of the UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ2boh_i8EnOT4b32sctj6b0zAWVuAnQjOC2m6HZsndTtqVEOdpX0d_XedM0bacIwTfWTd5ym8V3hwaPvRlb4BPpiIy0TZqGIMNn103le8xBcXC4LcY7FD5dm_xuGxlhWZmyuP8qJuh5p7rE6dIx9JMr4gH7mre2Q1JW10gFmZLA_w4pjhR1m_FKbycd6ReM1DN93IrocVwPeKXLgdsMf8Yr2hGMQjbTtLmGoKGc7metuS2HCXX9oj"/>
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim tracking-tight">小宝贝成长记</h1>
+</div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-150 bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-container-max mx-auto px-gutter-mobile pt-lg pb-xl flex flex-col gap-lg">
+<!-- Header -->
+<div class="flex flex-col gap-xs mb-sm">
+<h2 class="font-headline-lg text-headline-lg text-text-main">成长里程碑</h2>
+<p class="font-body-md text-body-md text-text-muted">见证宝贝的每一个闪光时刻</p>
+</div>
+<!-- Overall Progress Bento Card -->
+<section class="bg-surface-container-lowest rounded-3xl p-lg shadow-ambient relative overflow-hidden">
+<!-- Decorative gradient bg -->
+<div class="absolute -right-16 -top-16 w-48 h-48 bg-primary-container rounded-full blur-3xl opacity-60"></div>
+<div class="flex items-center justify-between relative z-10">
+<div class="flex flex-col gap-xs">
+<h3 class="font-headline-md text-headline-md text-on-surface">总体进度</h3>
+<p class="font-body-md text-body-md text-text-muted">已解锁 24/36 项里程碑</p>
+<div class="mt-sm flex gap-sm">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-1 rounded-full font-caption text-caption">6个月阶段</span>
+</div>
+</div>
+<!-- Circular Progress -->
+<div class="relative w-24 h-24 flex items-center justify-center">
+<svg class="w-full h-full" viewbox="0 0 100 100">
+<circle class="text-surface-container-highest stroke-current" cx="50" cy="50" fill="transparent" r="45" stroke-width="8"></circle>
+<circle class="text-tertiary stroke-current progress-ring__circle" cx="50" cy="50" fill="transparent" r="45" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="font-headline-lg text-headline-lg text-tertiary leading-none">67%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Honor Wall -->
+<section class="flex flex-col gap-md">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary fill" data-icon="workspace_premium" data-weight="fill">workspace_premium</span>
+                荣誉墙
+            </h3>
+<div class="grid grid-cols-3 gap-md">
+<!-- Badge 1 -->
+<div class="bg-secondary-container rounded-2xl p-sm flex flex-col items-center justify-center text-center gap-sm shadow-ambient aspect-square">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-full flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined fill text-2xl" data-icon="sentiment_very_satisfied" data-weight="fill">sentiment_very_satisfied</span>
+</div>
+<span class="font-label-md text-label-md text-on-secondary-container">第一个笑</span>
+</div>
+<!-- Badge 2 -->
+<div class="bg-tertiary-container rounded-2xl p-sm flex flex-col items-center justify-center text-center gap-sm shadow-ambient aspect-square">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-full flex items-center justify-center text-tertiary shadow-sm">
+<span class="material-symbols-outlined fill text-2xl" data-icon="footprint" data-weight="fill">footprint</span>
+</div>
+<span class="font-label-md text-label-md text-on-tertiary-container">第一次翻身</span>
+</div>
+<!-- Badge 3 (Locked) -->
+<div class="bg-surface-container-low rounded-2xl p-sm flex flex-col items-center justify-center text-center gap-sm shadow-ambient aspect-square opacity-70 border border-dashed border-outline-variant">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-full flex items-center justify-center text-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-2xl" data-icon="lock">lock</span>
+</div>
+<span class="font-label-md text-label-md text-text-muted">独坐</span>
+</div>
+</div>
+</section>
+<!-- Milestone Lists -->
+<div class="flex flex-col gap-lg mt-sm">
+<!-- Category: Gross Motor Skills -->
+<section class="flex flex-col gap-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface">大动作发育</h3>
+<div class="flex flex-col gap-sm">
+<!-- Achieved Item -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex items-center gap-md shadow-ambient">
+<div class="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined fill" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<div class="flex-grow flex flex-col">
+<h4 class="font-label-md text-label-md text-on-surface">俯卧抬头 90度</h4>
+<p class="font-caption text-caption text-text-muted mt-1">建议: 3-4个月</p>
+</div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-1 rounded-full font-caption text-caption flex-shrink-0">
+                            已达成
+                        </div>
+</div>
+<!-- Achieved Item -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex items-center gap-md shadow-ambient">
+<div class="w-12 h-12 bg-primary-container rounded-xl flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined fill" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<div class="flex-grow flex flex-col">
+<h4 class="font-label-md text-label-md text-on-surface">从仰卧翻到俯卧</h4>
+<p class="font-caption text-caption text-text-muted mt-1">建议: 4-6个月</p>
+</div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-1 rounded-full font-caption text-caption flex-shrink-0">
+                            已达成
+                        </div>
+</div>
+<!-- Locked Item -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex items-center gap-md shadow-ambient opacity-80">
+<div class="w-12 h-12 bg-surface-container-low rounded-xl flex items-center justify-center text-outline-variant flex-shrink-0 border border-dashed border-outline-variant">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<div class="flex-grow flex flex-col">
+<h4 class="font-label-md text-label-md text-on-surface">无需支撑独坐</h4>
+<p class="font-caption text-caption text-text-muted mt-1">建议: 6-8个月</p>
+</div>
+<div class="bg-surface-container-high text-on-surface-variant px-sm py-1 rounded-full font-caption text-caption flex-shrink-0">
+                            未解锁
+                        </div>
+</div>
+</div>
+</section>
+<!-- Category: Language Expression -->
+<section class="flex flex-col gap-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface">语言表达</h3>
+<div class="flex flex-col gap-sm">
+<!-- Achieved Item -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex items-center gap-md shadow-ambient">
+<div class="w-12 h-12 bg-secondary-container rounded-xl flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined fill" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<div class="flex-grow flex flex-col">
+<h4 class="font-label-md text-label-md text-on-surface">发出"啊"、"喔"等元音</h4>
+<p class="font-caption text-caption text-text-muted mt-1">建议: 2-3个月</p>
+</div>
+<div class="bg-secondary-fixed text-on-secondary-fixed px-sm py-1 rounded-full font-caption text-caption flex-shrink-0">
+                            已达成
+                        </div>
+</div>
+<!-- Locked Item -->
+<div class="bg-surface-container-lowest rounded-2xl p-md flex items-center gap-md shadow-ambient opacity-80">
+<div class="w-12 h-12 bg-surface-container-low rounded-xl flex items-center justify-center text-outline-variant flex-shrink-0 border border-dashed border-outline-variant">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<div class="flex-grow flex flex-col">
+<h4 class="font-label-md text-label-md text-on-surface">无意识发出"ba"、"ma"音</h4>
+<p class="font-caption text-caption text-text-muted mt-1">建议: 6-7个月</p>
+</div>
+<div class="bg-surface-container-high text-on-surface-variant px-sm py-1 rounded-full font-caption text-caption flex-shrink-0">
+                            未解锁
+                        </div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl shadow-[0_-4px_20px_rgba(255,249,229,0.1)] bg-surface dark:bg-surface-container-low fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="home">home</span>
+<span class="font-label-md text-label-md">首页</span>
+</a>
+<!-- Active Tab: Growth maps to Milestones -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">成长时光</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="photo_library">photo_library</span>
+<span class="font-label-md text-label-md">宝宝相册</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="auto_stories">auto_stories</span>
+<span class="font-label-md text-label-md">亲子日记</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200 rounded-full" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="person">person</span>
+<span class="font-label-md text-label-md">我的</span>
+</a>
+</nav>
+</body></html>

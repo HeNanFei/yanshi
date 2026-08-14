@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="zh"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>宝宝相册</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f1f0f0",
+                      "on-primary-fixed-variant": "#4a4739",
+                      "on-background": "#1a1c1c",
+                      "surface-container-highest": "#e3e2e1",
+                      "error-container": "#ffdad6",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#fdcfcf",
+                      "primary": "#625f4f",
+                      "tertiary-fixed": "#c8e9e2",
+                      "surface-variant": "#e3e2e1",
+                      "inverse-primary": "#ccc6b4",
+                      "primary-fixed-dim": "#ccc6b4",
+                      "on-primary-fixed": "#1e1c10",
+                      "on-tertiary-fixed": "#01201c",
+                      "tertiary": "#46645f",
+                      "surface-dim": "#dadad9",
+                      "surface-bright": "#faf9f8",
+                      "tertiary-fixed-dim": "#adcdc7",
+                      "secondary-fixed": "#ffdad9",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#625f4f",
+                      "inverse-surface": "#2f3130",
+                      "sky-blue": "#D1E9F6",
+                      "outline-variant": "#cbc6bb",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#2f4c47",
+                      "primary-fixed": "#e8e2cf",
+                      "warm-border": "#F2E8D5",
+                      "on-surface": "#1a1c1c",
+                      "on-secondary-fixed": "#2d1415",
+                      "surface-container": "#eeeeed",
+                      "on-secondary": "#ffffff",
+                      "surface-container-high": "#e9e8e7",
+                      "text-muted": "#A39788",
+                      "on-tertiary": "#ffffff",
+                      "background": "#faf9f8",
+                      "surface": "#faf9f8",
+                      "text-main": "#5C5346",
+                      "primary-container": "#fff9e5",
+                      "secondary-fixed-dim": "#e8bcbc",
+                      "on-surface-variant": "#49473f",
+                      "secondary": "#785656",
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#e3fff9",
+                      "on-secondary-fixed-variant": "#5e3e3f",
+                      "surface-container-low": "#f4f3f2",
+                      "on-primary-container": "#767262",
+                      "on-tertiary-container": "#5a7873",
+                      "on-secondary-container": "#795657",
+                      "on-error": "#ffffff",
+                      "outline": "#7a776e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter-mobile": "20px",
+                      "container-max": "800px",
+                      "base": "4px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "sm": "12px",
+                      "xs": "8px"
+              },
+              "fontFamily": {
+                      "display-hero-mobile": ["Plus Jakarta Sans"],
+                      "label-md": ["Be Vietnam Pro"],
+                      "display-hero": ["Plus Jakarta Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "headline-lg": ["Plus Jakarta Sans"],
+                      "body-lg": ["Be Vietnam Pro"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "caption": ["Be Vietnam Pro"]
+              },
+              "fontSize": {
+                      "display-hero-mobile": ["26px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "display-hero": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg": ["22px", {"lineHeight": "28px", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom soft shadow for gallery cards */
+        .shadow-cozy {
+            box-shadow: 0 8px 24px rgba(98, 95, 79, 0.08);
+        }
+        /* Hide scrollbar for horizontal scrolling lists */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen pb-32">
+<!-- TopAppBar (from JSON) -->
+<header class="w-full top-0 sticky z-40 bg-background dark:bg-background flex items-center justify-between px-gutter-mobile py-md">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container shadow-cozy shrink-0">
+<img alt="Baby profile picture" class="w-full h-full object-cover" data-alt="A close-up, softly lit portrait of a happy baby with slightly flushed cheeks, wearing a cozy cream-colored knit cap. The background is a soft, out-of-focus pastel yellow nursery setting. The lighting is bright and warm, emphasizing the soft texture of the baby's skin and the knit fabric." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgK5AaQ43AV9ZWQbmc4W4CGn4_OsbqkcwG8w_VL7Q9OMrHz66_3Zq5xm1bNQDzcMXVD_6wI2RgxxuMS-fwp73pNUV3OoI7kMwMKXBrr4fF7N5MDwwvSzARzntvgLZTRzOqW6pJV11TG9obc62DeDyEXYogKF41gmYTblMG4jY7wUMeaNF_GPlB01KPEAn4JzEyxs0PoScW4xDZ7I2Pgx7fM7AbMvyRcI2fAHLIv1sD24o7DcBT6nMt"/>
+</div>
+<h1 class="font-display-hero-mobile text-display-hero-mobile text-primary dark:text-primary-fixed-dim">小宝贝成长记</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity active:scale-95 duration-150">
+<span class="material-symbols-outlined text-2xl">notifications</span>
+</button>
+</header>
+<main class="px-gutter-mobile pt-2">
+<!-- Page Title & Search -->
+<div class="mb-6">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-text-main mb-4">宝宝相册</h2>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 font-body-md text-text-main placeholder:text-text-muted focus:ring-2 focus:ring-primary-container focus:bg-surface shadow-[inset_0_2px_8px_rgba(98,95,79,0.05)] transition-all" placeholder="搜索回忆 (例如: 生日, 第一次走路)" type="text"/>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex overflow-x-auto no-scrollbar gap-3 mb-6 pb-2">
+<!-- Active Chip -->
+<button class="shrink-0 bg-tertiary-fixed text-on-tertiary-fixed px-5 py-2 rounded-full font-label-md text-label-md shadow-sm active:scale-95 transition-transform">
+                推荐
+            </button>
+<!-- Inactive Chips -->
+<button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-label-md text-label-md active:scale-95 transition-transform">
+                日常
+            </button>
+<button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-label-md text-label-md active:scale-95 transition-transform">
+                出游
+            </button>
+<button class="shrink-0 bg-surface-container text-on-surface-variant px-5 py-2 rounded-full font-label-md text-label-md active:scale-95 transition-transform">
+                全家福
+            </button>
+</div>
+<!-- Masonry Grid -->
+<div class="columns-2 gap-4 space-y-4">
+<!-- Photo Item 1 (Tall) -->
+<div class="break-inside-avoid relative rounded-[24px] overflow-hidden shadow-cozy bg-surface group">
+<img class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A beautiful, high-quality photograph of a baby playing with wooden blocks on a soft, fluffy white rug. The lighting is warm and natural, streaming in from a nearby window. The color palette features soft creams, gentle wood tones, and subtle pastel accents. The style is modern, intimate, and emotionally resonant." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlhJ0ajStM8uAiehS-MLabAhACbmFyy188k-2Fp34QCa5wq63ecJ2LOex58JJ0IvAdjCKyzdPrYVJK3qY5mwuUHxuDJxW-zuwmcBnhtAnUqC5_b3Q8F3nGkUNIMomnaSs2mIqcUbgaXnNN4JU68joBsQh24tKUmiqkqdt8BWW5opXiFvync8S1U_ReU1w3nXhBYAZ4WT45gll9Bnj6z4MTC3DeAXjaIz0dJMkDEFWxJzzsptO-ASH9"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur-sm rounded-full px-3 py-1 font-caption text-caption text-tertiary flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                    精选
+                </div>
+<div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/40 to-transparent">
+<p class="font-label-md text-label-md text-white">11月24日</p>
+</div>
+</div>
+<!-- Photo Item 2 (Square-ish) -->
+<div class="break-inside-avoid relative rounded-[24px] overflow-hidden shadow-cozy bg-surface group">
+<img class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A candid, warm photograph of a toddler taking their first steps in a cozy, modern living room. The room features soft beige tones, a plush sofa, and natural light casting gentle shadows. The baby is wearing a soft ribbed onesie. The overall mood is joyful, triumphant, and tender." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1-T44PCkkHhT7ZMWP1HkLCzAtmVvlHcoFf_itf0EWRjFCsqad3K3tyDd7AOcuSrIrw-PtyX51VF14-fuFSmnC19GETRnFuQ-FEKp_kFwJ_yHbJCLbbf7D6MuoiXc8BQxO9fQZYznKU0zvHhsRSoOgd9vkPg-bA9Da3q30A3dw29KI4SDHOwj1M4UtPd6BdzQCyRlklbWnB3k-zi9qcClwPd7DSF6AEOpKu5fHVldKczDVcLNcZQt5"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur-sm rounded-full px-3 py-1 font-caption text-caption text-secondary flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">favorite</span>
+                    日常
+                </div>
+</div>
+<!-- Photo Item 3 (Medium) -->
+<div class="break-inside-avoid relative rounded-[24px] overflow-hidden shadow-cozy bg-surface group">
+<img class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A serene outdoor photo of a baby resting in a modern stroller in a sun-dappled park. The leaves are softly out of focus in the background, creating beautiful bokeh. The light is golden hour, casting a warm, comforting glow over the scene. The aesthetic is peaceful, natural, and highly textured." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIo_WMta__UEdj_pCnUPQOpFDBifKE6OJYtOFJ72-h-vZoY5RJM5Q2t0d7aMp04K7QuRQ_JAZUubRQOFXTUORVdeJ0D2joirXheSxkFWg8skLPNS8PW7uMga7vQwhK5MWhG2RzwUZ-j867Js3BOiCqQIPnOH_2zAB4-rxdYqpOutiSO_-LjoOVHe60ds5Pa1W38dX83E_amqtAVeTcTJ5Zm4kFqU5J8Kv-mMekqG7ivm47kKPfwGpS"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur-sm rounded-full px-3 py-1 font-caption text-caption text-sky-blue flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">park</span>
+                    出游
+                </div>
+</div>
+<!-- Photo Item 4 (Tall) -->
+<div class="break-inside-avoid relative rounded-[24px] overflow-hidden shadow-cozy bg-surface group">
+<img class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A heartwarming close-up shot of a baby's tiny hand holding a parent's finger. The background is a highly blurred, warm, cozy knitted blanket in muted peach and cream tones. The lighting is exceptionally soft and ambient, emphasizing the delicate skin texture and the deep emotional connection of the moment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6taApA8pI_JDLMmT5obsxrrboZUdbnegIc_pc_tNyMu4qyryxgrKWg0StlVos4VCQW1VxLgxtY5l7NWv9sJ4tZBlhwlgUeOZafx_cNTluInOUjepafwpNgw65BiyqOeQ_BDCmYLin7wK_Rbt2-pJBKg-4H9Z8V0BE2Qfhz3oCshshmZLOf47yOuxmacSqozMS7YMZbbIe86Q1kQOPgqBvzc9UikyyqDiUG_YPRY2aAd_nWK6zYdJo"/>
+<div class="absolute top-3 left-3 bg-surface/90 backdrop-blur-sm rounded-full px-3 py-1 font-caption text-caption text-text-main flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">family_home</span>
+                    全家福
+                </div>
+<div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/40 to-transparent">
+<p class="font-label-md text-label-md text-white">10月12日</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (from JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_20px_rgba(255,249,229,0.1)] bg-surface dark:bg-surface-container-low rounded-t-xl hidden md:hidden block">
+<!-- 1. Home -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-md text-label-md">首页</span>
+</button>
+<!-- 2. Growth -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1">monitoring</span>
+<span class="font-label-md text-label-md">成长时光</span>
+</button>
+<!-- 3. Gallery (ACTIVE) -->
+<button class="flex flex-col items-center justify-center bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined icon-filled mb-1">photo_library</span>
+<span class="font-label-md text-label-md">宝宝相册</span>
+</button>
+<!-- 4. Diary -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1">auto_stories</span>
+<span class="font-label-md text-label-md">亲子日记</span>
+</button>
+<!-- 5. Profile -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container transition-colors active:scale-90 transition-transform duration-200">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-md text-label-md">我的</span>
+</button>
+</nav>
+</body></html>

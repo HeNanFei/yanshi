@@ -1,602 +1,270 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于我们 - 小宝贝成长记</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>我的 - 洵洵成长记</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                colors: {
+                    primary: "#625f4f", secondary: "#785656", tertiary: "#46645f",
+                    background: "#faf9f8", surface: "#faf9f8",
+                    "surface-container": "#eeeeed", "surface-container-high": "#e9e8e7",
+                    "surface-container-low": "#f4f3f2", "surface-container-lowest": "#ffffff",
+                    "primary-container": "#fff9e5", "secondary-container": "#fdcfcf",
+                    "tertiary-container": "#e3fff9", "tertiary-fixed": "#c8e9e2",
+                    "primary-fixed": "#e8e2cf", "secondary-fixed": "#ffdad9",
+                    "on-primary": "#ffffff", "on-secondary": "#ffffff", "on-tertiary": "#ffffff",
+                    "on-primary-container": "#767262", "on-secondary-container": "#795657",
+                    "on-tertiary-container": "#5a7873", "on-tertiary-fixed": "#01201c",
+                    "on-surface": "#1a1c1c", "on-surface-variant": "#49473f",
+                    "text-main": "#5C5346", "text-muted": "#A39788",
+                    "sky-blue": "#D1E9F6", "warm-border": "#F2E8D5",
+                    "outline-variant": "#cbc6bb",
+                },
+                spacing: { "gutter-mobile": "20px", "container-max": "800px", xl: "32px", lg: "24px", md: "16px", sm: "12px", xs: "8px" },
+                fontFamily: { display: ["Plus Jakarta Sans", "PingFang SC", "Microsoft YaHei", "sans-serif"], body: ["Be Vietnam Pro", "PingFang SC", "Microsoft YaHei", "sans-serif"] },
+                fontSize: {
+                    hero: ["26px", { lineHeight: "32px", fontWeight: "700" }],
+                    hl: ["22px", { lineHeight: "28px", fontWeight: "700" }],
+                    hm: ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                    bl: ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                    bm: ["14px", { lineHeight: "1.6", fontWeight: "400" }],
+                    lm: ["13px", { lineHeight: "16px", fontWeight: "600" }],
+                    cap: ["11px", { lineHeight: "14px", fontWeight: "500" }],
+                }
+            }}
+        }
+    </script>
     <style>
-        /* ===== 关于我们介绍 ===== */
-        .about-intro {
-            max-width: 900px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-        }
-
-        .about-card {
-            background: white;
-            border-radius: 30px;
-            padding: 60px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-card::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, rgba(168, 216, 240, 0.3), rgba(143, 214, 180, 0.3));
-            border-radius: 50%;
-        }
-
-        .about-card::after {
-            content: '';
-            position: absolute;
-            bottom: -80px;
-            left: -80px;
-            width: 250px;
-            height: 250px;
-            background: linear-gradient(135deg, rgba(255, 228, 181, 0.3), rgba(255, 182, 193, 0.3));
-            border-radius: 50%;
-        }
-
-        .about-icon {
-            font-size: 80px;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-card h2 {
-            font-size: 32px;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-card p {
-            font-size: 16px;
-            color: var(--text-gray);
-            line-height: 2;
-            position: relative;
-            z-index: 1;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* ===== 家庭成员 ===== */
-        .family-section {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            color: var(--primary-dark);
-            margin-bottom: 50px;
-            font-weight: 700;
-        }
-
-        .family-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .family-member {
-            background: white;
-            border-radius: 25px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .family-member:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .member-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            position: relative;
-        }
-
-        .member-avatar.dad {
-            background: linear-gradient(135deg, #A8D8F0, #6BB9E8);
-        }
-
-        .member-avatar.mom {
-            background: linear-gradient(135deg, #FFC8D0, #FFB6C1);
-        }
-
-        .member-avatar.baby {
-            background: linear-gradient(135deg, #B8E6D0, #8FD6B4);
-        }
-
-        .member-avatar::after {
-            content: '';
-            position: absolute;
-            inset: -6px;
-            border: 3px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: spin 20s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .family-member h3 {
-            font-size: 22px;
-            color: var(--text-dark);
-            margin-bottom: 5px;
-        }
-
-        .family-member .role {
-            color: var(--primary);
-            font-size: 14px;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .family-member p {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        .member-tags {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        .member-tag {
-            padding: 4px 12px;
-            background: var(--bg-light);
-            color: var(--primary);
-            border-radius: 12px;
-            font-size: 12px;
-        }
-
-        /* ===== 故事时间线 ===== */
-        .story-section {
-            max-width: 900px;
-            margin: 0 auto 60px;
-            padding: 50px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: var(--shadow);
-        }
-
-        .story-title {
-            text-align: center;
-            font-size: 28px;
-            color: var(--primary-dark);
-            margin-bottom: 40px;
-        }
-
-        .story-timeline {
-            position: relative;
-            padding-left: 40px;
-        }
-
-        .story-timeline::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--primary-light), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .story-item {
-            position: relative;
-            margin-bottom: 35px;
-        }
-
-        .story-item::before {
-            content: '';
-            position: absolute;
-            left: -32px;
-            top: 5px;
-            width: 14px;
-            height: 14px;
-            background: white;
-            border: 3px solid var(--primary);
-            border-radius: 50%;
-        }
-
-        .story-date {
-            font-size: 14px;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .story-content h4 {
-            font-size: 18px;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-
-        .story-content p {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        /* ===== 为什么做这个网站 ===== */
-        .why-section {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-        }
-
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .why-card {
-            background: white;
-            border-radius: 24px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .why-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .why-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, rgba(107, 185, 232, 0.15), rgba(143, 214, 180, 0.15));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-        }
-
-        .why-card h4 {
-            font-size: 20px;
-            color: var(--primary-dark);
-            margin-bottom: 12px;
-        }
-
-        .why-card p {
-            font-size: 14px;
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        /* ===== 联系我们 ===== */
-        .contact-section {
-            max-width: 800px;
-            margin: 0 auto 60px;
-            padding: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 30px;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-section::before {
-            content: '💙';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.1;
-            top: -50px;
-            right: -30px;
-        }
-
-        .contact-section h3 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-section p {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-methods {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-method {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .contact-method .icon {
-            font-size: 35px;
-        }
-
-        .contact-method .label {
-            font-size: 13px;
-            opacity: 0.8;
-        }
-
-        .contact-method .value {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        @media (max-width: 768px) {
-            .about-card {
-                padding: 40px 25px;
-            }
-
-            .family-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .why-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .story-section {
-                padding: 30px 20px;
-            }
-
-            .contact-section {
-                padding: 40px 25px;
-            }
-        }
+        body { background-color: #faf9f8; }
+        .ambient-shadow { box-shadow: 0 8px 32px rgba(98,95,79,0.05); }
+        .ambient-shadow-interactive { box-shadow: 0 4px 20px rgba(98,95,79,0.06); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { min-height: max(884px, 100dvh); }
     </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">👶</span>
-                <span>小宝贝成长记</span>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="growth.html">成长时光</a></li>
-                <li><a href="gallery.html">精彩相册</a></li>
-                <li><a href="milestones.html">成长里程碑</a></li>
-                <li><a href="diary.html">亲子日记</a></li>
-                <li><a href="about.html" class="active">关于</a></li>
-            </ul>
-        </div>
-    </nav>
+<body class="bg-background text-on-surface font-body-bm min-h-screen pb-28">
 
-    <div class="page-container">
-        <!-- 页头 -->
-        <div class="page-header">
-            <h1>💝 关于我们</h1>
-            <p>一个充满爱的小家庭，用心记录宝贝成长的每一天</p>
-        </div>
-
-        <!-- 关于介绍 -->
-        <section class="about-intro">
-            <div class="about-card">
-                <div class="about-icon">🏠</div>
-                <h2>欢迎来到小毛豆的成长小天地</h2>
-                <p>
-                    这里是小宇辰（小名毛豆）的个人成长记录网站。<br>
-                    我们是一个平凡又幸福的三口之家，爸爸妈妈用爱和耐心，<br>
-                    记录着宝贝从出生到长大的每一个珍贵瞬间。<br><br>
-                    希望这个小小的网站，能成为宝贝长大后最珍贵的礼物——<br>
-                    让他知道，从来到这个世界的第一天起，<br>
-                    就被满满的爱包围着。
-                </p>
-            </div>
-        </section>
-
-        <!-- 家庭成员 -->
-        <section class="family-section">
-            <h2 class="section-title">👨‍👩‍👦 我们这一家</h2>
-            <div class="family-grid">
-                <div class="family-member">
-                    <div class="member-avatar dad">👨</div>
-                    <h3>宇辰爸爸</h3>
-                    <div class="role">家里的顶梁柱</div>
-                    <p>程序员爸爸，工作认真努力，回家就变身为超级奶爸。虽然有时候有点笨手笨脚，但对宝贝的爱一点都不少。</p>
-                    <div class="member-tags">
-                        <span class="member-tag">程序员</span>
-                        <span class="member-tag">游戏爱好者</span>
-                        <span class="member-tag">女儿奴（儿子版）</span>
-                    </div>
-                </div>
-                <div class="family-member">
-                    <div class="member-avatar baby">👶</div>
-                    <h3>小毛豆</h3>
-                    <div class="role">全家的小可爱</div>
-                    <p>2025年8月10日出生的小蛇宝宝，狮子座小王子。爱笑爱闹爱探索，是家里的开心果和小魔王。</p>
-                    <div class="member-tags">
-                        <span class="member-tag">小吃货</span>
-                        <span class="member-tag">睡神</span>
-                        <span class="member-tag">爱笑宝</span>
-                    </div>
-                </div>
-                <div class="family-member">
-                    <div class="member-avatar mom">👩</div>
-                    <h3>宇辰妈妈</h3>
-                    <div class="role">超人妈妈</div>
-                    <p>全职妈妈，把家里打理得井井有条。温柔又有耐心，是宝贝最依赖的人，也是爸爸最坚强的后盾。</p>
-                    <div class="member-tags">
-                        <span class="member-tag">美食达人</span>
-                        <span class="member-tag">手工小能手</span>
-                        <span class="member-tag">育儿专家</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 我们的故事 -->
-        <section class="story-section">
-            <h2 class="story-title">💕 我们的故事</h2>
-            <div class="story-timeline">
-                <div class="story-item">
-                    <div class="story-date">2020年 · 相遇</div>
-                    <div class="story-content">
-                        <h4>茫茫人海中的相遇</h4>
-                        <p>爸爸妈妈在朋友聚会上相识，从陌生到熟悉，从相识到相知，爱情的种子悄悄发芽。</p>
-                    </div>
-                </div>
-                <div class="story-item">
-                    <div class="story-date">2022年 · 结婚</div>
-                    <div class="story-content">
-                        <h4>组成幸福的小家庭</h4>
-                        <p>经过两年的恋爱，爸爸妈妈携手走进婚姻殿堂，开始了柴米油盐的甜蜜生活。</p>
-                    </div>
-                </div>
-                <div class="story-item">
-                    <div class="story-date">2024年 · 期待</div>
-                    <div class="story-content">
-                        <h4>小生命悄悄来临</h4>
-                        <p>两道红杠带来了惊喜和期待。爸爸妈妈开始学习育儿知识，为迎接小生命做准备。</p>
-                    </div>
-                </div>
-                <div class="story-item">
-                    <div class="story-date">2025年8月10日 · 新生</div>
-                    <div class="story-content">
-                        <h4>小毛豆出生啦！</h4>
-                        <p>伴随着一声响亮的啼哭，小毛豆来到了我们身边。一家三口的幸福生活，从此刻开始。</p>
-                    </div>
-                </div>
-                <div class="story-item">
-                    <div class="story-date">2026年 · 成长</div>
-                    <div class="story-content">
-                        <h4>一起成长的每一天</h4>
-                        <p>宝贝在慢慢长大，爸爸妈妈也在学着如何做更好的父母。每一天都是新的挑战，也是新的幸福。</p>
-                    </div>
-                </div>
-                <div class="story-item">
-                    <div class="story-date">未来 · 待续...</div>
-                    <div class="story-content">
-                        <h4>更多美好在等着我们</h4>
-                        <p>宝贝的人生才刚刚开始，还有无数个第一次等着我们一起经历。爸爸妈妈会一直陪在你身边。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 为什么做这个网站 -->
-        <section class="why-section">
-            <h2 class="section-title">💡 为什么做这个网站</h2>
-            <div class="why-grid">
-                <div class="why-card">
-                    <div class="why-icon">📸</div>
-                    <h4>珍藏每一个瞬间</h4>
-                    <p>宝贝的成长只有一次，每一个瞬间都值得被珍藏。我们想用这种特别的方式，记录下所有的美好。</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">🎁</div>
-                    <h4>给宝贝的礼物</h4>
-                    <p>等宝贝长大以后，可以看看自己小时候的样子，知道自己是在满满的爱中长大的，这是最好的成年礼。</p>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon">👨‍👩‍👦</div>
-                    <h4>分享幸福时光</h4>
-                    <p>远方的爷爷奶奶、外公外婆，可以通过这个网站随时看到宝贝的近况，一起分享成长的喜悦。</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 联系我们 -->
-        <section class="contact-section">
-            <h3>📮 想和我们说说话？</h3>
-            <p>如果你也喜欢小毛豆，或者想分享你的育儿故事，欢迎联系我们～</p>
-            <div class="contact-methods">
-                <div class="contact-method">
-                    <div class="icon">💌</div>
-                    <div class="label">电子邮箱</div>
-                    <div class="value">baby@example.com</div>
-                </div>
-                <div class="contact-method">
-                    <div class="icon">📱</div>
-                    <div class="label">微信公众号</div>
-                    <div class="value">小毛豆成长记</div>
-                </div>
-                <div class="contact-method">
-                    <div class="icon">💬</div>
-                    <div class="label">留言板</div>
-                    <div class="value">欢迎留下你的祝福</div>
-                </div>
-            </div>
-        </section>
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-background flex items-center justify-between px-gutter-mobile py-md">
+    <h1 class="font-display text-hero text-primary">我的</h1>
+    <div class="flex items-center gap-2">
+        <button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+            <span class="material-symbols-outlined text-[22px]">share</span>
+        </button>
+        <button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:bg-surface-container-high transition-colors active:scale-95 duration-150">
+            <span class="material-symbols-outlined text-[22px]">settings</span>
+        </button>
     </div>
+</header>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div>
-                <h3>👶 小宝贝成长记</h3>
-                <p>记录成长，珍藏感动<br>用爱陪伴宝贝每一天</p>
+<main class="px-gutter-mobile md:px-0 max-w-container-max mx-auto md:py-lg space-y-xl">
+    <!-- Profile Header Widget -->
+    <section class="bg-primary-container rounded-3xl p-lg relative overflow-hidden ambient-shadow">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-2xl"></div>
+        <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-secondary-container/30 rounded-full blur-xl"></div>
+        <div class="relative z-10 flex flex-col md:flex-row items-center gap-lg">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg shrink-0">
+                <img class="w-full h-full object-cover" src="images/微信图片_20260717110048_2875_24.jpg" alt="宝宝头像">
             </div>
-            <div>
-                <h3>快速导航</h3>
-                <p><a href="index.html">首页</a></p>
-                <p><a href="growth.html">成长时光</a></p>
-                <p><a href="gallery.html">精彩相册</a></p>
+            <div class="text-center md:text-left flex-1">
+                <h1 class="font-display text-hl text-primary mb-1">洵洵</h1>
+                <p class="font-body-bm text-bm text-on-primary-container mb-md">10个月 27天</p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-sm">
+                    <div class="bg-white/60 px-sm py-xs rounded-full flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-[16px] text-tertiary">height</span>
+                        <span class="font-body-cap text-cap text-text-main">73 cm</span>
+                    </div>
+                    <div class="bg-white/60 px-sm py-xs rounded-full flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-[16px] text-tertiary">scale</span>
+                        <span class="font-body-cap text-cap text-text-main">9.5 kg</span>
+                    </div>
+                    <div class="bg-white/60 px-sm py-xs rounded-full flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-[16px] text-secondary icon-filled">favorite</span>
+                        <span class="font-body-cap text-cap text-text-main">健康良好</span>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h3>更多内容</h3>
-                <p><a href="milestones.html">成长里程碑</a></p>
-                <p><a href="diary.html">亲子日记</a></p>
-                <p><a href="about.html">关于我们</a></p>
+            <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-primary shadow-sm hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined">edit</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Stats Cards -->
+    <section class="grid grid-cols-3 gap-sm">
+        <div class="bg-surface-container-lowest rounded-2xl p-md text-center ambient-shadow">
+            <div class="font-display text-hm text-primary mb-1">212</div>
+            <div class="font-body-cap text-cap text-text-muted">照片</div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-2xl p-md text-center ambient-shadow">
+            <div class="font-display text-hm text-secondary mb-1">22</div>
+            <div class="font-body-cap text-cap text-text-muted">日记</div>
+        </div>
+        <div class="bg-surface-container-lowest rounded-2xl p-md text-center ambient-shadow">
+            <div class="font-display text-hm text-tertiary mb-1">18</div>
+            <div class="font-body-cap text-cap text-text-muted">里程碑</div>
+        </div>
+    </section>
+
+    <!-- Family Members -->
+    <section>
+        <h2 class="font-display text-hm text-primary mb-md px-xs">家庭成员</h2>
+        <div class="grid grid-cols-3 gap-md">
+            <!-- Mom -->
+            <div class="bg-surface-container-lowest rounded-2xl p-md flex flex-col items-center text-center ambient-shadow-interactive cursor-pointer hover:-translate-y-1 transition-transform">
+                <div class="w-16 h-16 rounded-full overflow-hidden mb-sm border-2 border-secondary-container bg-secondary-container flex items-center justify-center text-on-secondary-container text-xl font-bold">
+                    妈
+                </div>
+                <h3 class="font-body-lm text-lm text-text-main mb-xs">妈妈</h3>
+                <div class="bg-secondary-container/50 px-2 py-0.5 rounded-full">
+                    <span class="font-body-cap text-cap text-secondary">超级妈妈</span>
+                </div>
             </div>
-            <div>
-                <h3>联系我们</h3>
-                <p>💌 baby@example.com</p>
-                <p>📱 关注微信公众号</p>
-                <p>💬 分享成长喜悦</p>
+            <!-- Dad -->
+            <div class="bg-surface-container-lowest rounded-2xl p-md flex flex-col items-center text-center ambient-shadow-interactive cursor-pointer hover:-translate-y-1 transition-transform">
+                <div class="w-16 h-16 rounded-full overflow-hidden mb-sm border-2 border-sky-blue bg-sky-blue flex items-center justify-center text-primary text-xl font-bold">
+                    爸
+                </div>
+                <h3 class="font-body-lm text-lm text-text-main mb-xs">爸爸</h3>
+                <div class="bg-tertiary-fixed/50 px-2 py-0.5 rounded-full">
+                    <span class="font-body-cap text-cap text-tertiary">摄影师</span>
+                </div>
+            </div>
+            <!-- Add Member -->
+            <div class="bg-surface-container-low rounded-2xl p-md flex flex-col items-center justify-center text-center border-2 border-dashed border-warm-border cursor-pointer hover:bg-surface-container transition-colors">
+                <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-sm text-outline-variant">
+                    <span class="material-symbols-outlined">add</span>
+                </div>
+                <span class="font-body-cap text-cap text-text-muted">邀请家人</span>
             </div>
         </div>
-        <div class="footer-bottom">
-            © 2025 小宝贝成长记 · 用爱记录每一刻 · Made with 💙
-        </div>
-    </footer>
+    </section>
 
-    <script src="js/main.js"></script>
+    <!-- Settings List -->
+    <section class="bg-surface-container-lowest rounded-3xl overflow-hidden ambient-shadow">
+        <ul class="divide-y divide-warm-border/50">
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">badge</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">宝宝档案</h3>
+                        <p class="font-body-cap text-cap text-text-muted">基本信息、出生记录</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">vaccines</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">疫苗计划</h3>
+                        <p class="font-body-cap text-cap text-text-muted">下一次接种：下周二</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">group</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">亲友团</h3>
+                        <p class="font-body-cap text-cap text-text-muted">管理权限与分享设置</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">cloud</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">云空间</h3>
+                        <p class="font-body-cap text-cap text-text-muted">已使用 2.3GB / 5GB</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- More Settings -->
+    <section class="bg-surface-container-lowest rounded-3xl overflow-hidden ambient-shadow">
+        <ul class="divide-y divide-warm-border/50">
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-sky-blue/50 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">消息通知</h3>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">help</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">帮助与反馈</h3>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+            <li class="p-md hover:bg-surface-container-low transition-colors cursor-pointer flex items-center justify-between group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-text-muted group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined">info</span>
+                    </div>
+                    <div>
+                        <h3 class="font-body-bl text-bl text-text-main">关于我们</h3>
+                        <p class="font-body-cap text-cap text-text-muted">版本 1.0.0</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+            </li>
+        </ul>
+    </section>
+</main>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_20px_rgba(98,95,79,0.05)] bg-surface md:hidden">
+    <a href="index.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">home</span>
+        <span class="font-body-lm text-lm">首页</span>
+    </a>
+    <a href="growth.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">monitoring</span>
+        <span class="font-body-lm text-lm">成长时光</span>
+    </a>
+    <a href="gallery.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">photo_library</span>
+        <span class="font-body-lm text-lm">宝宝相册</span>
+    </a>
+    <a href="diary.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined mb-1">auto_stories</span>
+        <span class="font-body-lm text-lm">亲子日记</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-90 transition-transform duration-200">
+        <span class="material-symbols-outlined mb-1 icon-filled">person</span>
+        <span class="font-body-lm text-lm">我的</span>
+    </a>
+</nav>
+
 </body>
 </html>

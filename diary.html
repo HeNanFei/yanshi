@@ -1,556 +1,268 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>亲子日记 - 小宝贝成长记</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>亲子日记 - 洵洵成长记</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: { extend: {
+                colors: {
+                    primary: "#625f4f", secondary: "#785656", tertiary: "#46645f",
+                    background: "#faf9f8", surface: "#faf9f8",
+                    "surface-container": "#eeeeed", "surface-container-high": "#e9e8e7",
+                    "surface-container-low": "#f4f3f2", "surface-container-lowest": "#ffffff",
+                    "primary-container": "#fff9e5", "secondary-container": "#fdcfcf",
+                    "tertiary-container": "#e3fff9", "tertiary-fixed": "#c8e9e2",
+                    "primary-fixed": "#e8e2cf", "secondary-fixed": "#ffdad9",
+                    "on-primary": "#ffffff", "on-secondary": "#ffffff", "on-tertiary": "#ffffff",
+                    "on-primary-container": "#767262", "on-secondary-container": "#795657",
+                    "on-tertiary-container": "#5a7873", "on-tertiary-fixed": "#01201c",
+                    "on-surface": "#1a1c1c", "on-surface-variant": "#49473f",
+                    "text-main": "#5C5346", "text-muted": "#A39788",
+                    "sky-blue": "#D1E9F6", "warm-border": "#F2E8D5",
+                },
+                spacing: { "gutter-mobile": "20px", "container-max": "800px", xl: "32px", lg: "24px", md: "16px", sm: "12px", xs: "8px" },
+                fontFamily: { display: ["Plus Jakarta Sans", "PingFang SC", "Microsoft YaHei", "sans-serif"], body: ["Be Vietnam Pro", "PingFang SC", "Microsoft YaHei", "sans-serif"] },
+                fontSize: {
+                    hero: ["26px", { lineHeight: "32px", fontWeight: "700" }],
+                    hl: ["22px", { lineHeight: "28px", fontWeight: "700" }],
+                    hm: ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                    bl: ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+                    bm: ["14px", { lineHeight: "1.6", fontWeight: "400" }],
+                    lm: ["13px", { lineHeight: "16px", fontWeight: "600" }],
+                    cap: ["11px", { lineHeight: "14px", fontWeight: "500" }],
+                }
+            }}
+        }
+    </script>
     <style>
-        /* ===== 日记列表 ===== */
-        .diary-list {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px 60px;
-        }
-
-        .diary-item {
-            background: white;
-            border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .diary-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .diary-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .diary-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .diary-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .diary-info h4 {
-            font-size: 16px;
-            color: var(--text-dark);
-            margin-bottom: 2px;
-        }
-
-        .diary-info .date {
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
-        .diary-mood {
-            padding: 8px 18px;
-            background: rgba(143, 214, 180, 0.15);
-            color: #5BBD94;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .diary-title {
-            font-size: 22px;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .diary-content {
-            font-size: 15px;
-            color: var(--text-gray);
-            line-height: 2;
-            margin-bottom: 20px;
-        }
-
-        .diary-content p {
-            margin-bottom: 15px;
-        }
-
-        .diary-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .diary-tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
-        .diary-tag {
-            padding: 5px 14px;
-            background: var(--bg-light);
-            color: var(--primary);
-            border-radius: 15px;
-            font-size: 13px;
-        }
-
-        .diary-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid #f0f5f8;
-        }
-
-        .diary-stats {
-            display: flex;
-            gap: 25px;
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .diary-stats span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .diary-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .diary-actions button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: var(--text-light);
-            transition: all 0.3s ease;
-            padding: 5px;
-        }
-
-        .diary-actions button:hover {
-            color: var(--primary);
-            transform: scale(1.1);
-        }
-
-        .diary-actions button.liked {
-            color: #ff6b6b;
-        }
-
-        /* ===== 日记分类侧边 ===== */
-        .diary-sidebar {
-            display: none;
-        }
-
-        /* ===== 月份分组标题 ===== */
-        .month-header {
-            text-align: center;
-            margin: 40px 0 30px;
-            position: relative;
-        }
-
-        .month-header::before,
-        .month-header::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 30%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary-light));
-        }
-
-        .month-header::before {
-            left: 0;
-        }
-
-        .month-header::after {
-            right: 0;
-            background: linear-gradient(90deg, var(--primary-light), transparent);
-        }
-
-        .month-header h3 {
-            display: inline-block;
-            padding: 8px 30px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        /* ===== 作者标签 ===== */
-        .author-mom .diary-avatar {
-            background: linear-gradient(135deg, #FFC8D0, var(--accent));
-        }
-
-        .author-dad .diary-avatar {
-            background: linear-gradient(135deg, var(--primary-light), var(--primary));
-        }
-
-        /* ===== 引用样式 ===== */
-        .diary-quote {
-            border-left: 4px solid var(--secondary);
-            padding-left: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: var(--text-gray);
-            background: rgba(143, 214, 180, 0.05);
-            padding: 15px 20px;
-            border-radius: 0 12px 12px 0;
-        }
-
-        /* ===== 分页 ===== */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 40px;
-        }
-
-        .page-btn {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid var(--primary-light);
-            background: white;
-            color: var(--primary);
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .page-btn:hover,
-        .page-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        @media (max-width: 768px) {
-            .diary-item {
-                padding: 25px;
-            }
-
-            .diary-title {
-                font-size: 18px;
-            }
-        }
+        body { background-color: #faf9f8; }
+        .ambient-shadow { box-shadow: 0 8px 32px rgba(98,95,79,0.05); }
+        .ambient-shadow-sm { box-shadow: 0 4px 20px rgba(255,249,229,0.3); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { min-height: max(884px, 100dvh); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">👶</span>
-                <span>小宝贝成长记</span>
-            </a>
-            <ul class="nav-menu">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="growth.html">成长时光</a></li>
-                <li><a href="gallery.html">精彩相册</a></li>
-                <li><a href="milestones.html">成长里程碑</a></li>
-                <li><a href="diary.html" class="active">亲子日记</a></li>
-                <li><a href="about.html">关于</a></li>
-            </ul>
-        </div>
-    </nav>
+<body class="bg-background text-on-surface font-body-bm min-h-screen relative pb-28 antialiased selection:bg-secondary-container">
 
-    <div class="page-container">
-        <!-- 页头 -->
-        <div class="page-header">
-            <h1>📔 亲子日记</h1>
-            <p>爸爸妈妈用心写下的每一篇日记，都是给宝贝最珍贵的成长礼物</p>
-        </div>
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-background flex items-center justify-between px-gutter-mobile py-md">
+    <button class="w-10 h-10 rounded-full overflow-hidden soft-shadow flex items-center justify-center">
+        <img alt="宝宝头像" class="w-full h-full object-cover" src="images/微信图片_20260626085611_1416_24.jpg">
+    </button>
+    <h1 class="font-display text-hero text-primary">亲子日记</h1>
+    <button class="w-10 h-10 rounded-full flex items-center justify-center text-primary hover:opacity-80 transition-opacity active:scale-95 duration-150">
+        <span class="material-symbols-outlined text-2xl">notifications</span>
+    </button>
+</header>
 
-        <!-- 日记列表 -->
-        <div class="diary-list">
-            <!-- 2026年8月 -->
-            <div class="month-header"><h3>🌞 2026年8月</h3></div>
-
-            <article class="diary-item author-mom">
-                <div class="diary-header">
-                    <div class="diary-meta">
-                        <div class="diary-avatar">👩</div>
-                        <div class="diary-info">
-                            <h4>妈妈</h4>
-                            <div class="date">2026年8月10日 · 星期一</div>
-                        </div>
-                    </div>
-                    <div class="diary-mood">🥰 幸福满满</div>
-                </div>
-                <h2 class="diary-title">我的小宝贝，一岁生日快乐！</h2>
-                <div class="diary-content">
-                    <p>亲爱的小毛豆：</p>
-                    <p>时间过得真快啊，一转眼你就一岁了。妈妈还记得产房里第一次见到你的样子，小小的、皱巴巴的，像个小老头。那时候妈妈就在想，这个小人儿就是我的孩子吗？真的太神奇了。</p>
-                    <div class="diary-quote">
-                        这一年，妈妈见过你凌晨一点、两点、三点、四点的样子，也见过你每一个笑脸、每一次哭泣。辛苦是真的，但幸福也是真的。
-                    </div>
-                    <p>今天的你穿着小西装，在生日派对上摇摇晃晃地走路，看到蛋糕就兴奋地拍手。抓周的时候你先是抓了书，然后又抓了笔，爸爸妈妈都在旁边笑着说，看来我们家要出一个小学霸啦。</p>
-                    <p>一岁的你，会叫爸爸，会拍手，会指东西，会扶着走，每天都在学习新本领。妈妈有时候会有点舍不得你长大，但又期待看到你长大的样子。</p>
-                    <p>生日快乐，我的小宝贝。愿你一生平安喜乐，顺遂无忧。爸爸妈妈永远爱你 💙</p>
-                </div>
-                <div class="diary-tags">
-                    <span class="diary-tag"># 生日</span>
-                    <span class="diary-tag"># 周岁</span>
-                    <span class="diary-tag"># 感动</span>
-                </div>
-                <div class="diary-footer">
-                    <div class="diary-stats">
-                        <span>👁️ 128 阅读</span>
-                        <span>💬 12 评论</span>
-                    </div>
-                    <div class="diary-actions">
-                        <button class="liked">❤️ 36</button>
-                        <button>⭐</button>
-                        <button>💬</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="diary-item author-dad">
-                <div class="diary-header">
-                    <div class="diary-meta">
-                        <div class="diary-avatar">👨</div>
-                        <div class="diary-info">
-                            <h4>爸爸</h4>
-                            <div class="date">2026年8月8日 · 星期六</div>
-                        </div>
-                    </div>
-                    <div class="diary-mood">😭 感动到哭</div>
-                </div>
-                <h2 class="diary-title">宝贝叫我"爸爸"了！</h2>
-                <div class="diary-content">
-                    <p>今天下班回家，刚打开门，就听到里面传来"爸爸、爸爸"的声音。我以为是自己听错了，结果换鞋的时候，又清清楚楚地听到一声"爸爸"！</p>
-                    <p>我赶紧冲到客厅，就看到我妈抱着宝贝，宝贝正伸着小手朝我笑，嘴里还在"baba、baba"地叫着。虽然可能只是无意识的发音，但那一刻我真的眼泪都快出来了。</p>
-                    <div class="diary-quote">
-                        三十年来，第一次有人叫我"爸爸"。这个词从我的小宝贝嘴里说出来，比任何音乐都动听。
-                    </div>
-                    <p>抱着软软的小身体，闻着身上的奶香味，突然觉得每天加班到深夜都值了。以前总觉得自己还是个孩子，现在有了这个小不点，才真正有了当父亲的感觉。</p>
-                    <p>宝贝，爸爸会努力工作，给你和妈妈更好的生活。也会努力学习，做一个好爸爸。我们一起加油！</p>
-                </div>
-                <div class="diary-tags">
-                    <span class="diary-tag"># 爸爸</span>
-                    <span class="diary-tag"># 第一声</span>
-                    <span class="diary-tag"># 感动</span>
-                </div>
-                <div class="diary-footer">
-                    <div class="diary-stats">
-                        <span>👁️ 96 阅读</span>
-                        <span>💬 8 评论</span>
-                    </div>
-                    <div class="diary-actions">
-                        <button class="liked">❤️ 28</button>
-                        <button>⭐</button>
-                        <button>💬</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 2026年7月 -->
-            <div class="month-header"><h3">🌴 2026年7月</h3></div>
-
-            <article class="diary-item author-mom">
-                <div class="diary-header">
-                    <div class="diary-meta">
-                        <div class="diary-avatar">👩</div>
-                        <div class="diary-info">
-                            <h4>妈妈</h4>
-                            <div class="date">2026年7月28日 · 星期二</div>
-                        </div>
-                    </div>
-                    <div class="diary-mood">😊 开心</div>
-                </div>
-                <h2 class="diary-title">第一次带宝贝去海边</h2>
-                <div class="diary-content">
-                    <p>这个周末全家去了海边度假，这是宝贝第一次看到大海！</p>
-                    <p>刚到沙滩的时候，宝贝还有点紧张，小脚丫踩到沙子的时候皱了皱眉，好像在说"这是什么怪怪的东西"。但没过多久就开始兴奋了，用小手抓沙子，还想往嘴里塞，幸好被我及时阻止了哈哈。</p>
-                    <p>海水有点凉，爸爸抱着宝贝轻轻碰了碰海水，宝贝吓得一缩脚，然后又好奇地伸出去，反复好几次，可爱极了。</p>
-                    <p>下午在酒店睡午觉，宝贝可能是玩累了，睡得特别香。看着他熟睡的小脸，听着海浪的声音，觉得这样的日子真美好。</p>
-                    <p>以后还要带宝贝去更多更多的地方，看更大的世界 🌍</p>
-                </div>
-                <div class="diary-tags">
-                    <span class="diary-tag"># 旅行</span>
-                    <span class="diary-tag"># 海边</span>
-                    <span class="diary-tag"># 第一次</span>
-                </div>
-                <div class="diary-footer">
-                    <div class="diary-stats">
-                        <span>👁️ 85 阅读</span>
-                        <span>💬 5 评论</span>
-                    </div>
-                    <div class="diary-actions">
-                        <button class="liked">❤️ 21</button>
-                        <button>⭐</button>
-                        <button>💬</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="diary-item author-mom">
-                <div class="diary-header">
-                    <div class="diary-meta">
-                        <div class="diary-avatar">👩</div>
-                        <div class="diary-info">
-                            <h4>妈妈</h4>
-                            <div class="date">2026年7月15日 · 星期一</div>
-                        </div>
-                    </div>
-                    <div class="diary-mood">😤 小崩溃</div>
-                </div>
-                <h2 class="diary-title">妈妈的碎碎念：今天有点累</h2>
-                <div class="diary-content">
-                    <p>今天是独自带娃的一天，爸爸出差了。</p>
-                    <p>早上五点多宝贝就醒了，哄了半天才又睡了一会儿。然后就是喂奶、换尿布、做辅食、喂饭、陪玩、哄睡... 一天下来感觉什么都没做，又感觉做了好多事。</p>
-                    <p>下午宝贝有点闹觉，怎么哄都不行，抱着也哭，放下也哭，我也跟着差点哭了。那一刻真的有点崩溃，觉得自己好没用，连个孩子都哄不好。</p>
-                    <div class="diary-quote">
-                        后来宝贝哭着哭着就在我怀里睡着了，小脸上还挂着泪珠。看着他熟睡的样子，又觉得什么都可以原谅了。当妈大概就是这样吧，一边崩溃一边自愈。
-                    </div>
-                    <p>晚上爸爸打电话回来，听到他声音的那一刻眼泪就下来了。不是委屈，就是有点累。但挂了电话看看宝贝，又觉得充满了力量。</p>
-                    <p>明天又是新的一天，加油，超人妈妈 💪</p>
-                </div>
-                <div class="diary-tags">
-                    <span class="diary-tag"># 带娃日常</span>
-                    <span class="diary-tag"># 妈妈的心声</span>
-                    <span class="diary-tag"># 碎碎念</span>
-                </div>
-                <div class="diary-footer">
-                    <div class="diary-stats">
-                        <span>👁️ 156 阅读</span>
-                        <span>💬 23 评论</span>
-                    </div>
-                    <div class="diary-actions">
-                        <button class="liked">❤️ 42</button>
-                        <button>⭐</button>
-                        <button>💬</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 2026年6月 -->
-            <div class="month-header"><h3>🌸 2026年6月</h3></div>
-
-            <article class="diary-item author-dad">
-                <div class="diary-header">
-                    <div class="diary-meta">
-                        <div class="diary-avatar">👨</div>
-                        <div class="diary-info">
-                            <h4>爸爸</h4>
-                            <div class="date">2026年6月21日 · 星期日</div>
-                        </div>
-                    </div>
-                    <div class="diary-mood">🥰 超级幸福</div>
-                </div>
-                <h2 class="diary-title">我的第一个父亲节</h2>
-                <div class="diary-content">
-                    <p>今天是我人生中的第一个父亲节！</p>
-                    <p>早上醒来，妈妈抱着宝贝过来，宝贝手里举着一张卡片（当然是妈妈帮忙做的），上面画着歪歪扭扭的手印，写着"爸爸节日快乐"。那一刻真的太幸福了。</p>
-                    <p>去年的这个时候，我还在忐忑地等待着宝贝的到来，今年就已经有个小团子叫我爸爸了。时间真奇妙。</p>
-                    <p>当了爸爸之后，感觉自己变化挺大的。以前下班就想打游戏，现在归心似箭，就想赶紧回家抱儿子。以前觉得养孩子挺容易的，现在才知道有多不容易，也更能体会自己爸妈的辛苦了。</p>
-                    <div class="diary-quote">
-                        小毛豆，谢谢你选我做你的爸爸。余生请多指教，爸爸会努力的！
-                    </div>
-                </div>
-                <div class="diary-tags">
-                    <span class="diary-tag"># 父亲节</span>
-                    <span class="diary-tag"># 爸爸</span>
-                    <span class="diary-tag"># 感恩</span>
-                </div>
-                <div class="diary-footer">
-                    <div class="diary-stats">
-                        <span>👁️ 112 阅读</span>
-                        <span>💬 15 评论</span>
-                    </div>
-                    <div class="diary-actions">
-                        <button class="liked">❤️ 35</button>
-                        <button>⭐</button>
-                        <button>💬</button>
-                    </div>
-                </div>
-            </article>
-
-            <!-- 分页 -->
-            <div class="pagination">
-                <button class="page-btn">‹</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">›</button>
+<!-- Content Canvas -->
+<main class="w-full max-w-container-max mx-auto">
+    <!-- Statistics Section -->
+    <section class="px-gutter-mobile mt-2">
+        <div class="bg-primary-container rounded-[20px] p-5 flex justify-between items-center ambient-shadow-sm">
+            <div class="flex flex-col items-center flex-1">
+                <span class="font-display text-hl text-primary">22</span>
+                <span class="font-body-cap text-cap text-on-primary-container mt-1">日记篇数</span>
+            </div>
+            <div class="w-px h-10 bg-warm-border"></div>
+            <div class="flex flex-col items-center flex-1">
+                <span class="font-display text-hl text-primary">98</span>
+                <span class="font-body-cap text-cap text-on-primary-container mt-1">亲子互动</span>
+            </div>
+            <div class="w-px h-10 bg-warm-border"></div>
+            <div class="flex flex-col items-center flex-1">
+                <span class="font-display text-hl text-primary">330</span>
+                <span class="font-body-cap text-cap text-on-primary-container mt-1">陪伴天数</span>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div>
-                <h3>👶 小宝贝成长记</h3>
-                <p>记录成长，珍藏感动<br>用爱陪伴宝贝每一天</p>
-            </div>
-            <div>
-                <h3>快速导航</h3>
-                <p><a href="index.html">首页</a></p>
-                <p><a href="growth.html">成长时光</a></p>
-                <p><a href="gallery.html">精彩相册</a></p>
-            </div>
-            <div>
-                <h3>更多内容</h3>
-                <p><a href="milestones.html">成长里程碑</a></p>
-                <p><a href="diary.html">亲子日记</a></p>
-                <p><a href="about.html">关于我们</a></p>
-            </div>
-            <div>
-                <h3>联系我们</h3>
-                <p>💌 baby@example.com</p>
-                <p>📱 关注微信公众号</p>
-                <p>💬 分享成长喜悦</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            © 2025 小宝贝成长记 · 用爱记录每一刻 · Made with 💙
-        </div>
-    </footer>
+    <!-- Filter Tabs -->
+    <section class="px-gutter-mobile mt-6 flex gap-3 overflow-x-auto no-scrollbar py-1">
+        <button class="px-5 py-2 rounded-full bg-tertiary text-on-tertiary font-body-lm text-lm flex-shrink-0 active:scale-95 transition-transform duration-200 shadow-sm">
+            全部日记
+        </button>
+        <button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-body-lm text-lm flex-shrink-0 hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+            妈妈写的
+        </button>
+        <button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-body-lm text-lm flex-shrink-0 hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+            爸爸写的
+        </button>
+        <button class="px-5 py-2 rounded-full bg-surface-container text-on-surface-variant font-body-lm text-lm flex-shrink-0 hover:bg-surface-container-high transition-colors active:scale-95 duration-200">
+            成长记录
+        </button>
+    </section>
 
-    <script src="js/main.js"></script>
-    <script>
-        // 点赞功能
-        document.querySelectorAll('.diary-actions button:first-child').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.classList.toggle('liked');
-                const text = this.textContent;
-                const num = parseInt(text);
-                if (this.classList.contains('liked')) {
-                    this.textContent = '❤️ ' + (num + 1);
-                } else {
-                    this.textContent = '🤍 ' + (num - 1);
-                }
-            });
-        });
-    </script>
+    <!-- Timeline List -->
+    <section class="px-gutter-mobile mt-6 flex flex-col gap-5">
+        <!-- Entry Card 1 -->
+        <article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                        妈
+                    </div>
+                    <div>
+                        <p class="font-body-lm text-lm text-text-main">妈妈</p>
+                        <p class="font-body-cap text-cap text-text-muted mt-0.5">今天 14:30</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                    <span class="material-symbols-outlined text-[18px]">sentiment_satisfied</span>
+                </div>
+            </div>
+            <h2 class="font-display text-hm text-primary mb-2">洵洵会叫妈妈啦！</h2>
+            <p class="font-body-bm text-bm text-on-surface-variant mb-4 line-clamp-2">
+                今天下午在卧室陪洵洵玩，他突然清晰地叫了一声"妈妈"！虽然可能还是无意识的发音，但那声软软的小奶音像一股暖流涌入心底，眼泪差点就掉下来了。我的小宝贝，你慢慢长，妈妈会一直陪着你。
+            </p>
+            <div class="w-full h-32 rounded-[16px] overflow-hidden">
+                <img class="w-full h-full object-cover" src="images/微信图片_20260717110048_2875_24.jpg" alt="">
+            </div>
+        </article>
+
+        <!-- Entry Card 2 -->
+        <article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm bg-sky-blue flex items-center justify-center text-primary font-bold">
+                        爸
+                    </div>
+                    <div>
+                        <p class="font-body-lm text-lm text-text-main">爸爸</p>
+                        <p class="font-body-cap text-cap text-text-muted mt-0.5">昨天 09:15</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-sky-blue/30 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[18px]">sunny</span>
+                </div>
+            </div>
+            <h2 class="font-display text-hm text-primary mb-2">周末的早晨阳光明媚</h2>
+            <p class="font-body-bm text-bm text-on-surface-variant">
+                趁着周末天气好，带洵洵去公园散步。小家伙扶着婴儿车站得直直的，对路边的小花小草充满了好奇心，咿咿呀呀地说个不停。记录下这平凡又温馨的瞬间，希望能陪你慢慢长大。
+            </p>
+        </article>
+
+        <!-- Entry Card 3 -->
+        <article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                        妈
+                    </div>
+                    <div>
+                        <p class="font-body-lm text-lm text-text-main">妈妈</p>
+                        <p class="font-body-cap text-cap text-text-muted mt-0.5">3天前 21:00</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+                    <span class="material-symbols-outlined text-[18px]">bedtime</span>
+                </div>
+            </div>
+            <h2 class="font-display text-hm text-primary mb-2">扶着沙发站起来了！</h2>
+            <p class="font-body-bm text-bm text-on-surface-variant mb-4 line-clamp-2">
+                今天洵洵在沙发旁边玩，突然抓着沙发靠垫就站起来了！虽然站的时间还不长，摇摇晃晃的，但小胳膊小腿都在努力地支撑着。站定之后还得意地看了我一眼，那小表情简直太萌啦，又一个小里程碑达成！
+            </p>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="aspect-square rounded-[12px] overflow-hidden">
+                    <img class="w-full h-full object-cover" src="images/微信图片_20260626085611_1416_24.jpg" alt="">
+                </div>
+                <div class="aspect-square rounded-[12px] overflow-hidden">
+                    <img class="w-full h-full object-cover" src="images/微信图片_20260608165631_8_24.jpg" alt="">
+                </div>
+            </div>
+        </article>
+
+        <!-- Entry Card 4 -->
+        <article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm bg-sky-blue flex items-center justify-center text-primary font-bold">
+                        爸
+                    </div>
+                    <div>
+                        <p class="font-body-lm text-lm text-text-main">爸爸</p>
+                        <p class="font-body-cap text-cap text-text-muted mt-0.5">1周前 18:45</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+                    <span class="material-symbols-outlined text-[18px]">celebration</span>
+                </div>
+            </div>
+            <h2 class="font-display text-hm text-primary mb-2">第一次拍手手</h2>
+            <p class="font-body-bm text-bm text-on-surface-variant mb-4">
+                今天下班刚进门，就看见洵洵坐在爬行垫上，两只小手拍来拍去的！教了好几天终于学会拍手了，小巴掌拍得啪啪响，还一边拍一边笑，那开心的样子把全家都逗乐了。我的小宝贝真棒～
+            </p>
+            <div class="flex items-center gap-3 text-text-muted">
+                <span class="flex items-center gap-1 font-body-cap text-cap">
+                    <span class="material-symbols-outlined text-[16px]">favorite</span> 128
+                </span>
+                <span class="flex items-center gap-1 font-body-cap text-cap">
+                    <span class="material-symbols-outlined text-[16px]">chat_bubble</span> 24
+                </span>
+            </div>
+        </article>
+
+        <!-- Entry Card 5 -->
+        <article class="bg-surface-container-lowest rounded-[24px] p-5 ambient-shadow border border-warm-border/50">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden shadow-sm bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold">
+                        妈
+                    </div>
+                    <div>
+                        <p class="font-body-lm text-lm text-text-main">妈妈</p>
+                        <p class="font-body-cap text-cap text-text-muted mt-0.5">2周前</p>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+                    <span class="material-symbols-outlined text-[18px] icon-filled">restaurant</span>
+                </div>
+            </div>
+            <h2 class="font-display text-hm text-primary mb-2">自己用手抓饭吃</h2>
+            <p class="font-body-bm text-bm text-on-surface-variant">
+                今天给洵洵做了蒸南瓜和小面条，本来想喂他的，结果小家伙非要自己抓着吃。虽然弄得满脸满桌子都是，但是自己吃的特别香，一口接一口的不挑食。看着他努力学习新技能的样子，觉得时间过得真快呀～
+            </p>
+        </article>
+    </section>
+</main>
+
+<!-- Floating Action Button (FAB) -->
+<button class="fixed right-gutter-mobile bottom-[100px] w-14 h-14 bg-secondary text-on-secondary rounded-[20px] ambient-shadow flex items-center justify-center z-40 active:scale-90 transition-transform duration-200 hover:opacity-90">
+    <span class="material-symbols-outlined text-3xl icon-filled">edit</span>
+</button>
+
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0_-4px_20px_rgba(98,95,79,0.05)] bg-surface md:hidden">
+    <a href="index.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined text-2xl mb-1">home</span>
+        <span class="font-body-lm text-lm">首页</span>
+    </a>
+    <a href="growth.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined text-2xl mb-1">monitoring</span>
+        <span class="font-body-lm text-lm">成长时光</span>
+    </a>
+    <a href="gallery.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined text-2xl mb-1">photo_library</span>
+        <span class="font-body-lm text-lm">宝宝相册</span>
+    </a>
+    <a href="diary.html" class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-[16px] px-5 py-2 active:scale-90 transition-transform duration-200">
+        <span class="material-symbols-outlined text-2xl mb-1 icon-filled">auto_stories</span>
+        <span class="font-body-lm text-lm">亲子日记</span>
+    </a>
+    <a href="about.html" class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 active:scale-90 duration-200">
+        <span class="material-symbols-outlined text-2xl mb-1">person</span>
+        <span class="font-body-lm text-lm">我的</span>
+    </a>
+</nav>
+
 </body>
 </html>
